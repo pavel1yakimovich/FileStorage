@@ -1,0 +1,5 @@
+E:\Trainings EPAM\FinalProject\FileStorage\BLL.Interface\bin\Debug\BLL.Interface.dll
+E:\Trainings EPAM\FinalProject\FileStorage\BLL.Interface\bin\Debug\BLL.Interface.pdb
+E:\Trainings EPAM\FinalProject\FileStorage\BLL.Interface\obj\Debug\BLL.Interface.csprojResolveAssemblyReference.cache
+E:\Trainings EPAM\FinalProject\FileStorage\BLL.Interface\obj\Debug\BLL.Interface.dll
+E:\Trainings EPAM\FinalProject\FileStorage\BLL.Interface\obj\Debug\BLL.Interface.pdb
