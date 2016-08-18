@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace ORM
 {
     using System;
@@ -13,6 +11,7 @@ namespace ORM
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            Files = new HashSet<File>();
             Roles = new HashSet<Role>();
         }
 
@@ -20,10 +19,22 @@ namespace ORM
         public int Id { get; set; }
 
         [Required]
+        public string Email { get; set; }
+
+        [Required]
         [StringLength(50)]
-        public string Name { get; set; }
+        public string Password { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string About { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual HashSet<Role> Roles { get; set; }
+        public virtual ICollection<File> Files { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Role> Roles { get; set; }
     }
 }

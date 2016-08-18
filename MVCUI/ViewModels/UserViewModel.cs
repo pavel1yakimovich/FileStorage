@@ -17,6 +17,6 @@ namespace MVCUI.ViewModels
         public int Id { get; set; }
         [Display(Name = "User name")]
         public string UserName { get; set; }
-        public Role Role { get; set; }
+        public String Role { get; set; }
     }
 }

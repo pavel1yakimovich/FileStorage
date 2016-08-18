@@ -2,6 +2,7 @@
 using BLL.Interface.Services;
 using BLL.Services;
 using DAL.Concrete;
+using DAL.Interface.DTO;
 using DAL.Interface.Repository;
 using Ninject;
 using Ninject.Web.Common;
@@ -20,8 +21,14 @@ namespace DependencyResolver
         {
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
             kernel.Bind<DbContext>().To<EntityModel>().InRequestScope();
+            
+            kernel.Bind<IRoleService>().To<RoleService>();
+            kernel.Bind<IFileService>().To<FileService>();
             kernel.Bind<IUserService>().To<UserService>();
-            kernel.Bind<IUserRepository>().To<UserRepository>();
+
+            kernel.Bind<IRepository<DalUser>>().To<UserRepository>();
+            kernel.Bind<IRepository<DalFile>>().To<FileRepository>();
+            kernel.Bind<IRoleRepository>().To<RoleRepository>();
         }
     }
 }

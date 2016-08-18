@@ -6,11 +6,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using DAL.Interface.DTO;
 using DAL.Interface.Repository;
+using DAL.Mappers;
 using ORM;
 
 namespace DAL.Concrete
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IRepository<DalUser>
     {
         private readonly DbContext context;
 
@@ -21,57 +22,48 @@ namespace DAL.Concrete
 
         public IEnumerable<DalUser> GetAll()
         {
-            return context.Set<User>().Select(user => new DalUser()
-            {
-                Id = user.Id,
-                Name = user.Name,
-                RoleId = user.Roles.FirstOrDefault().Id
-
-            });
+            return context.Set<User>().Select(user => user.ToDalUser());
         }
 
         public DalUser GetById(int key)
         {
-            var ormuser = context.Set<User>().FirstOrDefault(user => user.Id == key);
-            return new DalUser()
-            {
-                Id = ormuser.Id,
-                Name = ormuser.Name
-
-            };
+            var ormUser = context.Set<User>().FirstOrDefault(user => user.Id == key);
+            return ormUser.ToDalUser();
         }
 
         public DalUser GetByPredicate(Expression<Func<DalUser, bool>> f)
         {
             //Expression<Func<DalUser, bool>> -> Expression<Func<User, bool>> (!)
-            throw new NotImplementedException();
+            var param = Expression.Parameter(typeof(User));
+            var body = new Visitor<User>(param).Visit(f.Body);
+            Expression<Func<User, bool>> expr = Expression.Lambda<Func<User, bool>>(body, param);
+            var user = context.Set<User>().FirstOrDefault(expr);
+
+            return user.ToDalUser();
         }
 
-        public void Create(DalUser e)
+        public void Create(DalUser dalUser)
         {
-            var user = new User()
-            {
-                Name = e.Name,
-                Roles = new HashSet<Role>(context.Set<Role>().Where(role => role.Id == e.RoleId)) //how to convert in user orm
-        };
-            context.Set<User>().Add((User)user);
+            var user = dalUser.ToOrmUser();
+            context.Set<User>().Add(user);
         }
 
-        public void Delete(DalUser e)
+        public void Delete(DalUser dalUser)
         {
-            var user = new User()
-            {
-                Id = e.Id,
-                Name = e.Name,
-                Roles = new HashSet<Role>(context.Set<Role>().Where(role => role.Id == e.RoleId))
-            };
+            var user = dalUser.ToOrmUser();
+
             user = context.Set<User>().Single(u => u.Id == user.Id);
-            context.Set<User>().Remove((User)user);
+            context.Set<User>().Remove(user);
         }
 
         public void Update(DalUser entity) // add body of method
         {
-            throw new NotImplementedException();
+            var oldUser = context.Set<User>().Single(u => u.Id == entity.Id);
+            oldUser.About = entity.About;
+            oldUser.Email = entity.Email;
+            oldUser.FirstName = entity.FirstName;
+            oldUser.LastName = entity.LastName;
+            oldUser.Password = entity.Password;
         }
     }
 }

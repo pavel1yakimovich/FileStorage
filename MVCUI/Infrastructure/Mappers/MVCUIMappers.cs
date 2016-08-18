@@ -5,19 +5,19 @@ namespace MVCUI.Infrastructure.Mappers
 {
     public static class MvcMappers
     {
-        public static UserViewModel ToMvcUser(this UserEntity userEntity)
+        public static UserViewModel ToMvcUser(this BllUser userEntity)
         {
             return new UserViewModel()
             {
                 Id = userEntity.Id,
                 UserName = userEntity.UserName,
-                Role = (Role)userEntity.RoleId
+                Role = (ViewModels.Role)userEntity.RoleId
             };
         }
 
-        public static UserEntity ToBllUser(this UserViewModel userViewModel)
+        public static BllUser ToBllUser(this UserViewModel userViewModel)
         {
-            return new UserEntity()
+            return new BllUser()
             {
                 Id = userViewModel.Id,
                 UserName = userViewModel.UserName,

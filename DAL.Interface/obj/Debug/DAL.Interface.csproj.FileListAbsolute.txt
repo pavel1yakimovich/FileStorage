@@ -4,3 +4,9 @@ E:\Trainings EPAM\FinalProject\FileStorage\DAL.Interface\bin\Debug\DAL.Interface
 E:\Trainings EPAM\FinalProject\FileStorage\DAL.Interface\obj\Debug\DAL.Interface.csprojResolveAssemblyReference.cache
 E:\Trainings EPAM\FinalProject\FileStorage\DAL.Interface\obj\Debug\DAL.Interface.dll
 E:\Trainings EPAM\FinalProject\FileStorage\DAL.Interface\obj\Debug\DAL.Interface.pdb
+E:\Trainings EPAM\FileStorage\DAL.Interface\bin\Debug\DAL.Interface.dll.config
+E:\Trainings EPAM\FileStorage\DAL.Interface\bin\Debug\DAL.Interface.dll
+E:\Trainings EPAM\FileStorage\DAL.Interface\bin\Debug\DAL.Interface.pdb
+E:\Trainings EPAM\FileStorage\DAL.Interface\obj\Debug\DAL.Interface.csprojResolveAssemblyReference.cache
+E:\Trainings EPAM\FileStorage\DAL.Interface\obj\Debug\DAL.Interface.dll
+E:\Trainings EPAM\FileStorage\DAL.Interface\obj\Debug\DAL.Interface.pdb

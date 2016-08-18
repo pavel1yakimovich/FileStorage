@@ -12,3 +12,17 @@ E:\Trainings EPAM\FinalProject\FileStorage\DAL\bin\Debug\EntityFramework.SqlServ
 E:\Trainings EPAM\FinalProject\FileStorage\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 E:\Trainings EPAM\FinalProject\FileStorage\DAL\obj\Debug\DAL.dll
 E:\Trainings EPAM\FinalProject\FileStorage\DAL\obj\Debug\DAL.pdb
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\DAL.dll.config
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\DAL.dll
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\DAL.pdb
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\DAL.Interface.dll
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\EntityFramework.dll
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\EntityFramework.SqlServer.dll
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\ORM.dll
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\DAL.Interface.pdb
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\ORM.pdb
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\EntityFramework.xml
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\EntityFramework.SqlServer.xml
+E:\Trainings EPAM\FileStorage\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+E:\Trainings EPAM\FileStorage\DAL\obj\Debug\DAL.dll
+E:\Trainings EPAM\FileStorage\DAL\obj\Debug\DAL.pdb
