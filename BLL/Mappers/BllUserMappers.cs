@@ -9,9 +9,6 @@ namespace BLL.Mappers
     {
         public static DalUser ToDalUser(this BllUser userEntity)
         {
-            var rolesList = new List<DalRole>();
-            rolesList.Add(userEntity.Role.ToDalRole());
-
             return new DalUser()
             {
                 Id = userEntity.Id,
@@ -20,7 +17,7 @@ namespace BLL.Mappers
                 About = userEntity.About,
                 Email = userEntity.Email,
                 Password = userEntity.Password,
-                Roles = rolesList
+                Roles = userEntity.Role.Select(role => role.ToDalRole())
             };
         }
 
@@ -34,7 +31,7 @@ namespace BLL.Mappers
                 About = dalUser.About,
                 Email = dalUser.Email,
                 Password = dalUser.Password,
-                Role = dalUser.Roles.FirstOrDefault().ToBllRole()
+                Role = dalUser.Roles.Select(role => role.ToBllRole())
             };
         }
     }

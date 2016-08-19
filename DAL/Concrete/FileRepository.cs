@@ -37,7 +37,7 @@ namespace DAL.Concrete
 
         public IEnumerable<DalFile> GetAll()
         {
-            return context.Set<File>().Select(file => file.ToDalFile());
+            return context.Set<File>().ToList().Select(file => file.ToDalFile());
         }
 
         public DalFile GetById(int key)

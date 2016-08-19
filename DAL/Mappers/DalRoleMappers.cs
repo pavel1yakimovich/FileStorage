@@ -14,8 +14,7 @@ namespace DAL.Mappers
         {
             return new Role()
             {
-                Id = dalRole.Id,
-                Name = dalRole.Name
+                Id = dalRole.Id
             };
         }
 

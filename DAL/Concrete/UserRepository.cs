@@ -22,7 +22,7 @@ namespace DAL.Concrete
 
         public IEnumerable<DalUser> GetAll()
         {
-            return context.Set<User>().Select(user => user.ToDalUser());
+            return context.Set<User>().ToList().Select(user => user.ToDalUser());
         }
 
         public DalUser GetById(int key)
@@ -45,6 +45,16 @@ namespace DAL.Concrete
         public void Create(DalUser dalUser)
         {
             var user = dalUser.ToOrmUser();
+
+            var roles = new List<Role>();
+
+            foreach (var role in user.Roles)
+            {
+                var ormRole = context.Set<Role>().Find(role.Id);
+                roles.Add(ormRole);
+            }
+            user.Roles = roles;
+
             context.Set<User>().Add(user);
         }
 

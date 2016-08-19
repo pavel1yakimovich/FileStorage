@@ -16,18 +16,12 @@ namespace DAL.Concrete
 
         public void Commit()
         {
-            if (Context != null)
-            {
-                Context.SaveChanges();
-            }
+            Context?.SaveChanges();
         }
 
         public void Dispose()
         {
-            if (Context != null)
-            {
-                Context.Dispose();
-            }
+            Context?.Dispose();
         }
     }
 }

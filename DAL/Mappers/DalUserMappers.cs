@@ -34,7 +34,7 @@ namespace DAL.Mappers
                 About = ormUser.About,
                 Email = ormUser.Email,
                 Password = ormUser.Password,
-                Roles = ormUser.Roles.Select(role => role.ToDalRole())
+                Roles = ormUser.Roles.ToList().Select(role => role.ToDalRole())
             };
         }
     }

@@ -1,5 +1,5 @@
-﻿@using MVCUI.ViewModels
-@model UserViewModel
+﻿@using MVCUI.ViewModels.User
+@model RegisterViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -13,18 +13,41 @@
     <fieldset>
         <legend>Create user</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UserName)
+        <div class="editor-field">
+            @Html.LabelFor(model => model.Email)
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.UserName)
+            @Html.LabelFor(model => model.Password)
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
         </div>
-        <div class="editor-label">
+        <div class="editor-field">
+            @Html.LabelFor(model => model.ConfirmPassword)
+            @Html.EditorFor(model => model.ConfirmPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+        </div>
+        <div class="editor-field">
+            @Html.LabelFor(model => model.FirstName)
+            @Html.EditorFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.LabelFor(model => model.LastName)
+            @Html.EditorFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.LabelFor(model => model.About)
+            @Html.EditorFor(model => model.About)
+        </div>
+        <div class="form-group">
             @Html.LabelFor(model => model.Role)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.Role,
-           new SelectList(Enum.GetNames(typeof(Role))), string.Empty)
+            <div class="col-md-10">
+                <select class="form-control" name="roleId">
+                    <option value="0">User</option>
+                    <option value="1">Admin</option>
+                </select>
+            </div>
         </div>
         <p>
             <input type="submit" value="Create" />

@@ -15,6 +15,6 @@ E:\Trainings EPAM\FileStorage\ORM\bin\Debug\EntityFramework.dll
 E:\Trainings EPAM\FileStorage\ORM\bin\Debug\EntityFramework.SqlServer.dll
 E:\Trainings EPAM\FileStorage\ORM\bin\Debug\EntityFramework.xml
 E:\Trainings EPAM\FileStorage\ORM\bin\Debug\EntityFramework.SqlServer.xml
-E:\Trainings EPAM\FileStorage\ORM\obj\Debug\ORM.csprojResolveAssemblyReference.cache
 E:\Trainings EPAM\FileStorage\ORM\obj\Debug\ORM.dll
 E:\Trainings EPAM\FileStorage\ORM\obj\Debug\ORM.pdb
+E:\Trainings EPAM\FileStorage\ORM\obj\Debug\ORM.csprojResolveAssemblyReference.cache

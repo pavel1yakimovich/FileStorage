@@ -1,4 +1,6 @@
-﻿namespace BLL.Interface.Entities
+﻿using System.Collections.Generic;
+
+namespace BLL.Interface.Entities
 {
     public class BllUser
     {
@@ -8,6 +10,6 @@
         public string About { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public BllRole Role { get; set; }
+        public IEnumerable<BllRole> Role { get; set; }
     }
 }

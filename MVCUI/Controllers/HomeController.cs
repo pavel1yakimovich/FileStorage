@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using BLL.Interface.Entities;
 using MVCUI.Infrastructure.Mappers;
-using MVCUI.ViewModels;
+using MVCUI.ViewModels.User;
 
 namespace MVCUI.Controllers
 {
@@ -52,9 +52,9 @@ namespace MVCUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserViewModel userViewModel)
+        public ActionResult Create(RegisterViewModel registerViewModel)
         {
-            service.CreateUser(userViewModel.ToBllUser());
+            service.CreateUser(registerViewModel.ToBllUser());
             return RedirectToAction("Index");
         }
 
