@@ -26,6 +26,10 @@ namespace ORM
                 .Property(e => e.Description)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<File>()
+                .Property(e => e.Type)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Role>()
                 .Property(e => e.Name)
                 .IsUnicode(false);

@@ -44,20 +44,6 @@ namespace MVCUI.Controllers
             return View(service.GetAllUserEntities().Select(user => user.ToMvcUser()));
         }
 
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(RegisterViewModel registerViewModel)
-        {
-            service.CreateUser(registerViewModel.ToBllUser());
-            return RedirectToAction("Index");
-        }
-
         ////GET-запрос к методу Delete несет потенциальную уязвимость!
         //[HttpGet]
         //public ActionResult Delete(int id = 0)

@@ -19,6 +19,7 @@ namespace DAL.Mappers
                 Name = ormFile.Name,
                 Description = ormFile.Description,
                 Content = ormFile.Content,
+                Type = ormFile.Type,
                 Date = ormFile.Date,
                 User = ormFile.User.ToDalUser(),
                 UserId = ormFile.User.Id
@@ -34,6 +35,7 @@ namespace DAL.Mappers
                 Name = dalFile.Name,
                 Description = dalFile.Description,
                 Content = dalFile.Content,
+                Type = dalFile.Type,
                 Date = dalFile.Date,
                 User = dalFile.User.ToOrmUser(),
                 User_Id = dalFile.UserId

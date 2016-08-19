@@ -23,13 +23,6 @@ namespace MVCUI.Infrastructure.Mappers
 
         public static BllUser ToBllUser(this RegisterViewModel registerViewModel)
         {
-            var roles = new List<RoleViewModel>();
-            roles.Add(new RoleViewModel()
-            {
-                Id = 1,
-                Name = "User"
-            });
-
             return new BllUser()
             {
                 Id = registerViewModel.Id,
@@ -38,7 +31,7 @@ namespace MVCUI.Infrastructure.Mappers
                 Email = registerViewModel.Email,
                 About = registerViewModel.About,
                 Password = registerViewModel.Password,
-                Role = roles.Select(mvcRole => mvcRole.ToBllRole())
+                Role = new List<BllRole>() { registerViewModel.Role.ToBllRole() }
             };
         }
 

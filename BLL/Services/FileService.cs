@@ -32,20 +32,17 @@ namespace BLL.Services
             return fileRepository.GetAll().Select(file => file.ToBllFile());
         }
 
-        public IEnumerable<BllFile> GetAllPublicFileEntities()
+        public IEnumerable<BllFile> GetAllPublicFileEntities() // make it through getbypredicate
         {
-            var list = new List<BllFile>();
-            try
+            var publicFiles = new List<BllFile>();
+            var list = fileRepository.GetAll().Where(file => file.IsPublic);
+
+            foreach (var item in list)
             {
-                while (true)
-                {
-                    list.Add(fileRepository.GetByPredicate(file => file.IsPublic).ToBllFile());
-                }
+                publicFiles.Add(item.ToBllFile());
             }
-            catch (Exception)
-            {
-                return list;
-            }
+
+            return publicFiles;
         }
 
         public IEnumerable<BllFile> GetAllFileEntitiesOfUser(BllUser user)

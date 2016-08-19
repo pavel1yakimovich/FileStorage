@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Users";
 }
-<h2>@ViewBag.Title.</h2>
 <h3>All users</h3>
 <table>
     <tr>
@@ -43,15 +42,6 @@
             <td>
                 @Html.DisplayTextFor(modelItem => item.Role.Name)
             </td>
-            <td>
-                @*@Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |*@
-                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-            </td>
         </tr>
     }
 </table>
-
-<p>
-    @Html.ActionLink("Add new user", "Create")
-</p>

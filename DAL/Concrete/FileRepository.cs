@@ -24,6 +24,10 @@ namespace DAL.Concrete
         public void Create(DalFile dalFile)
         {
             var file = dalFile.ToOrmFile();
+
+            var user = context.Set<User>().Find(file.User_Id);
+            file.User = user;
+
             context.Set<File>().Add(file);
         }
 
