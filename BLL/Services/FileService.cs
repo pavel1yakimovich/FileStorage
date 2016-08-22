@@ -50,10 +50,25 @@ namespace BLL.Services
             var list = new List<BllFile>();
             try
             {
-                while (true)
-                {
-                    list.Add(fileRepository.GetByPredicate(file => file.UserId == user.Id).ToBllFile());
-                }
+                list = fileRepository.GetAll().Where(file => file.UserId == user.Id)
+                    .Select(file => file.ToBllFile()).ToList();
+
+                return list;
+            }
+            catch (Exception)
+            {
+                return list;
+            }
+        }
+
+        public IEnumerable<BllFile> GetAllPublicFileEntitiesOfUser(BllUser user)
+        {
+            var list = new List<BllFile>();
+            try
+            {
+                list = (List<BllFile>)fileRepository.GetAll().Where(file => file.UserId == user.Id && file.IsPublic).Select(file => file.ToBllFile());
+
+                return list;
             }
             catch (Exception)
             {

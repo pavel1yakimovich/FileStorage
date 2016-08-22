@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using MVCUI.ViewModels.Account;
 
 namespace MVCUI.ViewModels.File
 {
@@ -18,8 +19,7 @@ namespace MVCUI.ViewModels.File
 
         [Display(Name = "Date of last change")]
         public DateTime Date { get; set; }
-
-        [Display(Name = "Owner")]
+        
         public int UserId { get; set; }
     }
 }

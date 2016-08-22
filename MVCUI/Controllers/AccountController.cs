@@ -12,27 +12,33 @@ using MVCUI.ViewModels.Account;
 
 namespace MVCUI.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
-        private readonly IUserService service;
+        private readonly IUserService userService;
+        private readonly IFileService fileService;
 
-        public AccountController(IUserService service)
+        public AccountController(IUserService userService, IFileService fileService)
         {
-            this.service = service;
+            this.fileService = fileService;
+            this.userService = userService;
         }
 
+        [Authorize(Roles = "Admin")]
         [ActionName("Index")]
         public ActionResult GetAllUsers()
         {
-            return View(service.GetAllUserEntities().Select(user => user.ToMvcUser()));
+            return View(userService.GetAllUserEntities().Select(user => user.ToMvcUser()));
         }
 
+        [AllowAnonymous]
         public ActionResult LogIn()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult LogIn(LogOnViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -65,27 +71,31 @@ namespace MVCUI.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel registerViewModel)
         {
             if (ModelState.IsValid)
             {
-                var anyUser = service.GetAllUserEntities().Any(u => u.Email.Contains(registerViewModel.Email));
+                var anyUser = userService.GetAllUserEntities().Any(u => u.Email.Contains(registerViewModel.Email));
 
                 if (anyUser)
                 {
                     ModelState.AddModelError("", "User with this address already registered.");
                     return View(registerViewModel);
                 }
-                
-                MembershipUser membershipUser = ((CustomMembershipProvider)Membership.Provider).CreateUser(registerViewModel.Email, registerViewModel.Password, 
-                    registerViewModel.FirstName, registerViewModel.LastName, registerViewModel.About);
+
+                MembershipUser membershipUser =
+                    ((CustomMembershipProvider) Membership.Provider).CreateUser(registerViewModel.Email,
+                        registerViewModel.Password,
+                        registerViewModel.FirstName, registerViewModel.LastName, registerViewModel.About);
 
                 if (membershipUser != null)
                 {

@@ -12,24 +12,30 @@ namespace MVCUI.Controllers
 {
     public class FileController : Controller
     {
-        private readonly IFileService service;
+        private readonly IUserService userService;
+        private readonly IFileService fileService;
 
-        public FileController(IFileService service)
+        public FileController(IFileService fileService, IUserService userService)
         {
-            this.service = service;
+            this.userService = userService;
+            this.fileService = fileService;
         }
 
         public ActionResult Index()
         {
-            return View(service.GetAllPublicFileEntities().Select(file => file.ToMvcFile()));
+            if (User.IsInRole("Admin"))
+                return View(fileService.GetAllFileEntities().Select(file => file.ToMvcFile()));
+            return View(fileService.GetAllPublicFileEntities().Select(file => file.ToMvcFile()));
         }
 
+        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create(UploadViewModel file, HttpPostedFileBase uploadFile)
         {
             byte[] fileData;
@@ -43,16 +49,17 @@ namespace MVCUI.Controllers
             file.Content = fileData;
             file.Date = DateTime.Now;
             file.Type = uploadFile.ContentType;
-
-            service.CreateFile(file.ToBllFile());
+            file.User = userService.GetUserEntity(User.Identity.Name).ToMvcUser();
+            
+            fileService.CreateFile(file.ToBllFile());
 
             return RedirectToAction("Index");
 
         }
-
+        
         public FileResult GetFile(int fileId)
         {
-            var file = service.GetFileEntity(fileId).ToMvcFile();
+            var file = fileService.GetFileEntity(fileId).ToMvcFile();
             return File(file.Content, file.Type, file.Name);
         }
     }

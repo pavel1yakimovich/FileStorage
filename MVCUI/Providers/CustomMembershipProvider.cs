@@ -36,7 +36,8 @@ namespace MVCUI.Providers
             return false;
         }
 
-        public MembershipUser CreateUser(string email, string password)
+        public MembershipUser CreateUser(string email, string password, 
+            string firstName, string lastName, string about)
         {
             MembershipUser membershipUser = GetUser(email, false);
 
@@ -49,6 +50,9 @@ namespace MVCUI.Providers
             {
                 Email = email,
                 Password = Crypto.HashPassword(password),
+                FirstName = firstName,
+                LastName = lastName,
+                About = about
             };
 
             var role = RoleService.GetRoleEntity("User");

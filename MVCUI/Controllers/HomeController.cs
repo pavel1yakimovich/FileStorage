@@ -12,25 +12,6 @@ namespace MVCUI.Controllers
 {
     public class HomeController : Controller
     {
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
-        //public ActionResult About()
-        //{
-        //    ViewBag.Message = "Your application description page.";
-
-        //    return View();
-        //}
-
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
-
-        //    return View();
-        //}
-
         private readonly IUserService service;
 
         public HomeController(IUserService service)
@@ -38,6 +19,7 @@ namespace MVCUI.Controllers
             this.service = service;
         }
 
+        [Authorize(Roles = "Admin")]
         [ActionName("Index")]
         public ActionResult GetAllUsers()
         {

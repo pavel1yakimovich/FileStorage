@@ -20,21 +20,8 @@ namespace MVCUI.Infrastructure.Mappers
                 Type = fileViewModel.Type,
                 Description = fileViewModel.Description,
                 Date = fileViewModel.Date,
-                UserId = fileViewModel.UserId,
-                User = new BllUser()
-                {
-                    Id = fileViewModel.Id,
-                    Email = "admin@gmail.com",
-                    Password = "qwerty",
-                    Role = new List<BllRole>()
-                    {
-                        new BllRole()
-                        {
-                            Id = 1,
-                            Name = "user"
-                        }
-                    }
-                }
+                UserId = fileViewModel.User.Id,
+                User = fileViewModel.User.ToBllUser()
             };
         }
 

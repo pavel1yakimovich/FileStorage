@@ -22,8 +22,7 @@ namespace MVCUI.ViewModels.File
 
         [Display(Name = "Date of last change")]
         public DateTime Date { get; set; }
-
-        [Display(Name = "Owner")]
-        public int UserId { get; set; }
+        
+        public UserViewModel User { get; set; }
     }
 }

@@ -7,8 +7,15 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("Hello, " + User.Identity.Name + "!", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Hello, " + User.Identity.Name + "!", "Index", "File")
             </li>
+            <li>
+                @Html.ActionLink("Upload new file", "Create", "File")
+            </li>
+            @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+            {
+                <li>@Html.ActionLink("All users", "Index", "Account")</li>
+            }
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
     }
