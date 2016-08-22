@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using BLL.Interface.Entities;
 using MVCUI.Infrastructure.Mappers;
-using MVCUI.ViewModels.User;
+using MVCUI.ViewModels.Account;
 
 namespace MVCUI.Controllers
 {

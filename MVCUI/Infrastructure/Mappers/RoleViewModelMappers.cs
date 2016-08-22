@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using BLL.Interface.Entities;
 using MVCUI.ViewModels;
-using MVCUI.ViewModels.User;
+using MVCUI.ViewModels.Account;
 
 namespace MVCUI.Infrastructure.Mappers
 {

@@ -15,19 +15,16 @@ namespace ORM
         public bool IsPublic { get; set; }
 
         [Required]
-        [StringLength(100)]
         public string Name { get; set; }
 
         public byte[] Content { get; set; }
 
-        [StringLength(140)]
         public string Description { get; set; }
 
         [Column(TypeName = "smalldatetime")]
         public DateTime Date { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string Type { get; set; }
 
         public virtual User User { get; set; }
