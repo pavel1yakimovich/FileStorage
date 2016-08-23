@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using BLL.Interface.Services;
 using MVCUI.Infrastructure.Mappers;
+using MVCUI.ViewModels.Account;
 using MVCUI.ViewModels.File;
 
 namespace MVCUI.Controllers
@@ -21,7 +22,7 @@ namespace MVCUI.Controllers
             this.fileService = fileService;
         }
 
-        public ActionResult Index()
+        public ActionResult All()
         {
             var list = User.IsInRole("Admin") ? fileService.GetAllFileEntities().Select(file => file.ToMvcFile()) :
                 fileService.GetAllPublicFileEntities().Select(file => file.ToMvcFile());
@@ -52,11 +53,10 @@ namespace MVCUI.Controllers
             file.Type = uploadFile.ContentType;
             file.User = User.Identity.Name;
             file.UserId = userService.GetUserEntity(User.Identity.Name).Id;
-
-
+            
             fileService.CreateFile(file.ToBllFile());
 
-            return RedirectToAction("Index");
+            return RedirectToAction("All");
 
         }
         
@@ -64,6 +64,15 @@ namespace MVCUI.Controllers
         {
             var file = fileService.GetFileEntity(fileId).ToMvcFile();
             return File(file.Content, file.Type, file.Name);
+        }
+
+        public ActionResult UserFiles(string name)
+        {
+            ViewBag.Name = name;
+            var list = User.IsInRole("Admin") || User.Identity.Name == name ? 
+                fileService.GetAllFileEntitiesOfUser(name).Select(file => file.ToMvcFile()) :
+                fileService.GetAllPublicFileEntitiesOfUser(name).Select(file => file.ToMvcFile());
+            return View(list);
         }
     }
 }

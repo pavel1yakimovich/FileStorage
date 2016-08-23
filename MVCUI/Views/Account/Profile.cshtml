@@ -1,0 +1,36 @@
+﻿@model MVCUI.ViewModels.Account.UserViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+@if (Model.Name == User.Identity.Name)
+{
+    <h3>Your profile</h3>
+}
+else
+{
+    <h3>Profile of @Model.Name</h3>
+}
+
+@{
+    using (Html.BeginForm())
+    {
+        <div>
+            <h4>@Html.DisplayNameFor(model => model.Name) :</h4>
+            <h4>@Html.DisplayFor(model => model.Name)</h4>
+        </div>
+        if (Model.Name == User.Identity.Name)
+        {
+            @Html.ActionLink("Your files", "UserFiles", "File", new { name = User.Identity.Name }, null)
+        }
+        else
+        {
+            @Html.ActionLink("User's files", "UserFiles", "File", new { name = Model.Name }, null)
+        }
+    }
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

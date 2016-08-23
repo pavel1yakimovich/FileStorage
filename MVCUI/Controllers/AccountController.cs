@@ -32,7 +32,7 @@ namespace MVCUI.Controllers
 
             foreach (UserViewModel item in list)
             {
-                item.Files = fileService.GetAllFileEntitiesOfUser(item.ToBllUser()).Select(file => file.ToMvcFile());
+                item.Files = fileService.GetAllFileEntitiesOfUser(item.Name).Select(file => file.ToMvcFile());
             }
             return View(list);
             //return View();
@@ -59,7 +59,7 @@ namespace MVCUI.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "File");
+                        return RedirectToAction("All", "File");
                     }
                 }
                 else
@@ -106,11 +106,20 @@ namespace MVCUI.Controllers
                 if (membershipUser != null)
                 {
                     FormsAuthentication.SetAuthCookie(registerViewModel.Name, false);
-                    return RedirectToAction("Index", "File");
+                    return RedirectToAction("All", "File");
                 }
                 ModelState.AddModelError("", "Error registration");
             }
             return View(registerViewModel);
+        }
+
+        [AllowAnonymous]
+        [ActionName("Profile")]
+        public ActionResult GetProfile(string name)
+        {
+            var user = userService.GetUserEntity(name).ToMvcUser();
+
+            return View(user);
         }
     }
 }

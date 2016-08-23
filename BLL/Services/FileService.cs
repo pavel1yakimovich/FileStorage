@@ -15,11 +15,13 @@ namespace BLL.Services
     {
         private readonly IUnitOfWork uow;
         private readonly IRepository<DalFile> fileRepository;
+        private readonly IRepository<DalUser> userRepository;
 
-        public FileService(IUnitOfWork uow, IRepository<DalFile> repository)
+        public FileService(IUnitOfWork uow, IRepository<DalFile> fileRepository, IRepository<DalUser> userrRepository)
         {
             this.uow = uow;
-            this.fileRepository = repository;
+            this.fileRepository = fileRepository;
+            this.userRepository = userrRepository;
         }
 
         public BllFile GetFileEntity(int id)
@@ -45,12 +47,14 @@ namespace BLL.Services
             return publicFiles;
         }
 
-        public IEnumerable<BllFile> GetAllFileEntitiesOfUser(BllUser user)
+        public IEnumerable<BllFile> GetAllFileEntitiesOfUser(string user)
         {
             var list = new List<BllFile>();
+            var userService = new UserService(uow, userRepository);
+            var owner = userService.GetUserEntity(user);
             try
             {
-                list = fileRepository.GetAll().Where(file => file.UserId == user.Id)
+                list = fileRepository.GetAll().Where(file => file.UserId == owner.Id)
                     .Select(file => file.ToBllFile()).ToList();
 
                 return list;
@@ -61,18 +65,19 @@ namespace BLL.Services
             }
         }
 
-        public IEnumerable<BllFile> GetAllPublicFileEntitiesOfUser(BllUser user)
+        public IEnumerable<BllFile> GetAllPublicFileEntitiesOfUser(string user)
         {
-            var list = new List<BllFile>();
+            var userService = new UserService(uow, userRepository);
+            var owner = userService.GetUserEntity(user);
             try
             {
-                list = (List<BllFile>)fileRepository.GetAll().Where(file => file.UserId == user.Id && file.IsPublic).Select(file => file.ToBllFile());
+                var list = fileRepository.GetAll().Where(file => file.UserId == owner.Id && file.IsPublic).ToList().Select(file => file.ToBllFile());
 
                 return list;
             }
             catch (Exception)
             {
-                return list;
+                return new List<BllFile>();
             }
         }
 
