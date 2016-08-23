@@ -16,6 +16,11 @@ namespace DAL
             _parameter = parameter;
         }
 
+        protected override Expression VisitParameter(ParameterExpression node)
+        {
+            return _parameter;
+        }
+
         protected override Expression VisitMember(MemberExpression node)
         {
             var memberName = node.Member.Name;

@@ -36,10 +36,9 @@ namespace MVCUI.Providers
             return false;
         }
 
-        public MembershipUser CreateUser(string email, string password, 
-            string firstName, string lastName, string about)
+        public MembershipUser CreateUser(string name, string password)
         {
-            MembershipUser membershipUser = GetUser(email, false);
+            MembershipUser membershipUser = GetUser(name, false);
 
             if (membershipUser != null)
             {
@@ -48,11 +47,8 @@ namespace MVCUI.Providers
 
             var user = new BllUser()
             {
-                Email = email,
+                Name = name,
                 Password = Crypto.HashPassword(password),
-                FirstName = firstName,
-                LastName = lastName,
-                About = about
             };
 
             var role = RoleService.GetRoleEntity("User");
@@ -62,7 +58,7 @@ namespace MVCUI.Providers
             }
 
             UserService.CreateUser(user);
-            membershipUser = GetUser(email, false);
+            membershipUser = GetUser(name, false);
             return membershipUser;
         }
 
@@ -78,7 +74,7 @@ namespace MVCUI.Providers
                 return null;
             }
             
-            var memberUser = new MembershipUser("CustomMembershipProvider", user.Email,
+            var memberUser = new MembershipUser("CustomMembershipProvider", user.Name,
                 null, null, null, null,
                 false, false, DateTime.MinValue, 
                 DateTime.MinValue, DateTime.MinValue,

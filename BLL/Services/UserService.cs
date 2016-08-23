@@ -43,9 +43,9 @@ namespace BLL.Services
             uow.Commit();
         }
 
-        public BllUser GetUserEntity(string email)
+        public BllUser GetUserEntity(string name)
         {
-            return userRepository.GetAll().FirstOrDefault(user => user.Email == email).ToBllUser();
+            return userRepository.GetAll().FirstOrDefault(user => user.Name == name).ToBllUser();
             //return userRepository.GetByPredicate(user => user.Email == email).ToBllUser();
         }
 

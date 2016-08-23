@@ -15,10 +15,7 @@ namespace DAL.Mappers
             return new User()
             {
                 Id = dalUser.Id,
-                FirstName = dalUser.FirstName,
-                LastName = dalUser.LastName,
-                About = dalUser.About,
-                Email = dalUser.Email,
+                Name = dalUser.Name,
                 Password = dalUser.Password,
                 Roles = dalUser.Roles.Select(role => role.ToOrmRole()).ToList()
             };
@@ -29,10 +26,7 @@ namespace DAL.Mappers
             return new DalUser()
             {
                 Id = ormUser.Id,
-                FirstName = ormUser.FirstName,
-                LastName = ormUser.LastName,
-                About = ormUser.About,
-                Email = ormUser.Email,
+                Name = ormUser.Name,
                 Password = ormUser.Password,
                 Roles = ormUser.Roles.ToList().Select(role => role.ToDalRole())
             };

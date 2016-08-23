@@ -22,7 +22,7 @@ namespace BLL.Mappers
                 Description = bllFile.Description,
                 Date = bllFile.Date,
                 UserId = bllFile.UserId,
-                User = bllFile.User.ToDalUser()
+                User = bllFile.User?.ToDalUser()
             };
         }
 

@@ -23,9 +23,10 @@ namespace MVCUI.Controllers
 
         public ActionResult Index()
         {
-            if (User.IsInRole("Admin"))
-                return View(fileService.GetAllFileEntities().Select(file => file.ToMvcFile()));
-            return View(fileService.GetAllPublicFileEntities().Select(file => file.ToMvcFile()));
+            var list = User.IsInRole("Admin") ? fileService.GetAllFileEntities().Select(file => file.ToMvcFile()) :
+                fileService.GetAllPublicFileEntities().Select(file => file.ToMvcFile());
+            
+            return View(list);
         }
 
         [Authorize]
@@ -36,7 +37,7 @@ namespace MVCUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Create(UploadViewModel file, HttpPostedFileBase uploadFile)
+        public ActionResult Create(FileViewModel file, HttpPostedFileBase uploadFile)
         {
             byte[] fileData;
 
@@ -49,8 +50,10 @@ namespace MVCUI.Controllers
             file.Content = fileData;
             file.Date = DateTime.Now;
             file.Type = uploadFile.ContentType;
-            file.User = userService.GetUserEntity(User.Identity.Name).ToMvcUser();
-            
+            file.User = User.Identity.Name;
+            file.UserId = userService.GetUserEntity(User.Identity.Name).Id;
+
+
             fileService.CreateFile(file.ToBllFile());
 
             return RedirectToAction("Index");

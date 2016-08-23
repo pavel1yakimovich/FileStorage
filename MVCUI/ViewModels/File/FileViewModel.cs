@@ -12,6 +12,8 @@ namespace MVCUI.ViewModels.File
         [ScaffoldColumn(false)]
         public int Id { get; set; }
         
+        [Display(Name = "Public file")]
+        public bool IsPublic { get; set; }
         public string Name { get; set; }
         public byte[] Content { get; set; }
         public string Type { get; set; }
@@ -20,6 +22,10 @@ namespace MVCUI.ViewModels.File
         [Display(Name = "Date of last change")]
         public DateTime Date { get; set; }
         
+        [ScaffoldColumn(false)]
         public int UserId { get; set; }
+
+        [Display(Name = "Owner")]
+        public string User { get; set; }
     }
 }

@@ -69,10 +69,7 @@ namespace DAL.Concrete
         public void Update(DalUser entity) // add body of method
         {
             var oldUser = context.Set<User>().Single(u => u.Id == entity.Id);
-            oldUser.About = entity.About;
-            oldUser.Email = entity.Email;
-            oldUser.FirstName = entity.FirstName;
-            oldUser.LastName = entity.LastName;
+            oldUser.Name = entity.Name;
             oldUser.Password = entity.Password;
         }
     }

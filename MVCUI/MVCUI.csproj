@@ -201,7 +201,6 @@
     <Compile Include="Providers\CustomRoleProvider.cs" />
     <Compile Include="ViewModels\Account\LogOnViewModel.cs" />
     <Compile Include="ViewModels\File\FileViewModel.cs" />
-    <Compile Include="ViewModels\File\UploadViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\UserViewModel.cs" />

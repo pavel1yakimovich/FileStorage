@@ -13,10 +13,7 @@ namespace MVCUI.Infrastructure.Mappers
             return new UserViewModel()
             {
                 Id = bllUser.Id,
-                FirstName = bllUser.FirstName,
-                LastName = bllUser.LastName,
-                Email = bllUser.Email,
-                About = bllUser.About,
+                Name = bllUser.Name,
                 Role = bllUser.Role.Select(role => role.ToMvcRole()).FirstOrDefault()
             };
         }
@@ -26,10 +23,7 @@ namespace MVCUI.Infrastructure.Mappers
             return new BllUser()
             {
                 Id = registerViewModel.Id,
-                FirstName = registerViewModel.FirstName,
-                LastName = registerViewModel.LastName,
-                Email = registerViewModel.Email,
-                About = registerViewModel.About,
+                Name = registerViewModel.Name,
                 Password = registerViewModel.Password,
                 Role = new List<BllRole>() { registerViewModel.Role.ToBllRole() }
             };
@@ -42,10 +36,7 @@ namespace MVCUI.Infrastructure.Mappers
             return new BllUser()
             {
                 Id = userViewModel.Id,
-                FirstName = userViewModel.FirstName,
-                LastName = userViewModel.LastName,
-                Email = userViewModel.Email,
-                About = userViewModel.About,
+                Name = userViewModel.Name,
                 Role = roles.Select(mvcRole => mvcRole.ToBllRole()).ToList()
             };
         }

@@ -28,7 +28,14 @@ namespace MVCUI.Controllers
         [ActionName("Index")]
         public ActionResult GetAllUsers()
         {
-            return View(userService.GetAllUserEntities().Select(user => user.ToMvcUser()));
+            var list = userService.GetAllUserEntities().Select(user => user.ToMvcUser());
+
+            foreach (UserViewModel item in list)
+            {
+                item.Files = fileService.GetAllFileEntitiesOfUser(item.ToBllUser()).Select(file => file.ToMvcFile());
+            }
+            return View(list);
+            //return View();
         }
 
         [AllowAnonymous]
@@ -43,9 +50,9 @@ namespace MVCUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.Email, model.Password))
+                if (Membership.ValidateUser(model.Name, model.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
+                    FormsAuthentication.SetAuthCookie(model.Name, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
@@ -84,7 +91,7 @@ namespace MVCUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var anyUser = userService.GetAllUserEntities().Any(u => u.Email.Contains(registerViewModel.Email));
+                var anyUser = userService.GetAllUserEntities().Any(u => u.Name.Contains(registerViewModel.Name));
 
                 if (anyUser)
                 {
@@ -93,13 +100,12 @@ namespace MVCUI.Controllers
                 }
 
                 MembershipUser membershipUser =
-                    ((CustomMembershipProvider) Membership.Provider).CreateUser(registerViewModel.Email,
-                        registerViewModel.Password,
-                        registerViewModel.FirstName, registerViewModel.LastName, registerViewModel.About);
+                    ((CustomMembershipProvider) Membership.Provider).CreateUser(registerViewModel.Name,
+                        registerViewModel.Password);
 
                 if (membershipUser != null)
                 {
-                    FormsAuthentication.SetAuthCookie(registerViewModel.Email, false);
+                    FormsAuthentication.SetAuthCookie(registerViewModel.Name, false);
                     return RedirectToAction("Index", "File");
                 }
                 ModelState.AddModelError("", "Error registration");

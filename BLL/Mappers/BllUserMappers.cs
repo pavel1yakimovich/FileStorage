@@ -12,10 +12,7 @@ namespace BLL.Mappers
             return new DalUser()
             {
                 Id = userEntity.Id,
-                FirstName = userEntity.FirstName,
-                LastName = userEntity.LastName,
-                About = userEntity.About,
-                Email = userEntity.Email,
+                Name = userEntity.Name,
                 Password = userEntity.Password,
                 Roles = userEntity.Role.Select(role => role.ToDalRole())
             };
@@ -26,10 +23,7 @@ namespace BLL.Mappers
             return new BllUser()
             {
                 Id = dalUser.Id,
-                FirstName = dalUser.FirstName,
-                LastName = dalUser.LastName,
-                About = dalUser.About,
-                Email = dalUser.Email,
+                Name = dalUser.Name,
                 Password = dalUser.Password,
                 Role = dalUser.Roles.Select(role => role.ToBllRole())
             };

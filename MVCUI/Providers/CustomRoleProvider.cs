@@ -16,11 +16,11 @@ namespace MVCUI.Providers
         public IRoleService RoleService
             => (IRoleService)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IRoleService));
 
-        public override bool IsUserInRole(string email, string roleName)
+        public override bool IsUserInRole(string name, string roleName)
         {
             try
             {
-                BllUser user = UserService.GetAllUserEntities().FirstOrDefault(u => u.Email == email);
+                BllUser user = UserService.GetAllUserEntities().FirstOrDefault(u => u.Name == name);
 
                 if (user == null) return false;
 
@@ -38,13 +38,13 @@ namespace MVCUI.Providers
             return false;
         }
 
-        public override string[] GetRolesForUser(string email)
+        public override string[] GetRolesForUser(string name)
         {
             string[] role = new string[] { };
             try
             {
                 // Получаем пользователя
-                BllUser user = UserService.GetAllUserEntities().FirstOrDefault(u => u.Email == email);
+                BllUser user = UserService.GetAllUserEntities().FirstOrDefault(u => u.Name == name);
                 if (user != null)
                 {
                     // получаем роль
