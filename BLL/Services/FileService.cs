@@ -87,7 +87,7 @@ namespace BLL.Services
             uow.Commit();
         }
 
-        public void DeleteUser(BllFile file)
+        public void DeleteFile(BllFile file)
         {
             fileRepository.Delete(file.ToDalFile());
             uow.Commit();

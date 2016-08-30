@@ -63,11 +63,9 @@ namespace DAL.Concrete
         public void Update(DalFile entity)
         {
             var oldFile = context.Set<File>().Single(u => u.Id == entity.Id);
-            oldFile.Content = entity.Content;
             oldFile.Date = entity.Date;
             oldFile.Description = entity.Description;
             oldFile.IsPublic = entity.IsPublic;
-            oldFile.Name = entity.Name;
         }
     }
 }

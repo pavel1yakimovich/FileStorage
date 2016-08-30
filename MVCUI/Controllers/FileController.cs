@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using BLL.Interface.Services;
 using MVCUI.Infrastructure.Mappers;
-using MVCUI.ViewModels.Account;
 using MVCUI.ViewModels.File;
 
 namespace MVCUI.Controllers
@@ -73,6 +72,64 @@ namespace MVCUI.Controllers
                 fileService.GetAllFileEntitiesOfUser(name).Select(file => file.ToMvcFile()) :
                 fileService.GetAllPublicFileEntitiesOfUser(name).Select(file => file.ToMvcFile());
             return View(list);
+        }
+
+        [Authorize]
+        public ActionResult Delete(int fileId)
+        {
+            try
+            {
+                var file = fileService.GetFileEntity(fileId).ToMvcFile();
+                if (User.IsInRole("Admin") || User.Identity.Name == file.User)
+                    return View(file);
+            }
+            catch (NullReferenceException)
+            {
+                var e = new HttpException(404, "There is no such file");
+                throw e;
+            }
+
+            var exception = new HttpException(403, "You cannot delete this file");
+            throw exception;
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ActionName("Delete")]
+        public ActionResult ConfirmDelete(FileViewModel file)
+        {
+            fileService.DeleteFile(file.ToBllFile());
+
+            return RedirectToAction("All");
+        }
+
+        [Authorize]
+        public ActionResult Edit(int fileId)
+        {
+            try
+            {
+                var file = fileService.GetFileEntity(fileId).ToMvcFile();
+                if (User.IsInRole("Admin") || User.Identity.Name == file.User)
+                    return View(file);
+            }
+            catch (NullReferenceException)
+            {
+                var e = new HttpException(404, "There is no such file");
+                throw e;
+            }
+
+            var exception = new HttpException(403, "You cannot edit this file");
+            throw exception;
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Edit(FileViewModel file)
+        {
+            file.Date = DateTime.Now;
+            fileService.UpdateFile(file.ToBllFile());
+
+            return RedirectToAction("All");
         }
     }
 }

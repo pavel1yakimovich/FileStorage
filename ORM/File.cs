@@ -21,7 +21,6 @@ namespace ORM
 
         public string Description { get; set; }
 
-        [Column(TypeName = "smalldatetime")]
         public DateTime Date { get; set; }
 
         [Required]

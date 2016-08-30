@@ -15,7 +15,7 @@ namespace BLL.Interface.Services
         IEnumerable<BllFile> GetAllFileEntitiesOfUser(string user);
         IEnumerable<BllFile> GetAllPublicFileEntitiesOfUser(string user);
         void CreateFile(BllFile file);
-        void DeleteUser(BllFile file);
+        void DeleteFile(BllFile file);
         void UpdateFile(BllFile file);
     }
 }
