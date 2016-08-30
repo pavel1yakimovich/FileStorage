@@ -63,7 +63,7 @@ namespace MVCUI.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Wrong password or email");
+                    ModelState.AddModelError("", "Wrong password or name");
                 }
             }
             return View(model);

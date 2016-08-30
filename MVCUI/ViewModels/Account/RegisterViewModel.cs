@@ -13,7 +13,7 @@ namespace MVCUI.ViewModels.Account
 
         [Display(Name = "Enter your name")]
         [Required(ErrorMessage = "The field can not be empty!")]
-        //[RegularExpression(@"[A-Za-z0-9._%+-]", ErrorMessage = "Wrong name")]
+        [RegularExpression(@"[\w|_|.|()|-]+", ErrorMessage = "Wrong name")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Enter your password")]
