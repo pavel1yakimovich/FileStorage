@@ -12,7 +12,7 @@ namespace MVCUI.ViewModels.Account
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Enter your password")]
-        [StringLength(50, ErrorMessage = "The password must contain at least {4} characters", MinimumLength = 4)]
+        [StringLength(50, ErrorMessage = "The password must contain at least {2} characters", MinimumLength = 4)]
         [DataType(DataType.Password)]
         [Display(Name = "Enter your password")]
         public string Password { get; set; }
