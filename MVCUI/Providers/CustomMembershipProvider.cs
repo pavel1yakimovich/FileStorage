@@ -62,12 +62,12 @@ namespace MVCUI.Providers
             return membershipUser;
         }
 
-        public override MembershipUser GetUser(string email, bool userIsOnline)
+        public override MembershipUser GetUser(string name, bool userIsOnline)
         {
             BllUser user;
             try
             {
-                user = UserService.GetUserEntity(email);
+                user = UserService.GetUserEntity(name);
             }
             catch (Exception)
             {
@@ -81,6 +81,22 @@ namespace MVCUI.Providers
                 DateTime.MinValue, DateTime.MinValue);
 
             return memberUser;
+        }
+
+        public bool ChangePassword(string username, string newPassword)
+        {
+            try
+            {
+                var user = UserService.GetUserEntity(username);
+                user.Password = Crypto.HashPassword(newPassword);
+                UserService.UpdateUser(user);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         #region stabs

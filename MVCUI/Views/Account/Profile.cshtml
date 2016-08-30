@@ -22,6 +22,8 @@ else
         if (Model.Name == User.Identity.Name)
         {
             @Html.ActionLink("Your files", "UserFiles", "File", new { name = User.Identity.Name }, null)
+
+            @Html.ActionLink("Change Password", "ChangePassword", "Account", new { id = Model.Id }, null)
         }
         else
         {

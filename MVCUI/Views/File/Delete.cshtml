@@ -33,7 +33,7 @@
         </dd>
     </dl>
 
-    @using (Html.BeginForm("Delete", "File", new { fileId = Model }, FormMethod.Post))
+    @using (Html.BeginForm("Delete", "File", new { fileId = Model.Id }, FormMethod.Post))
         
     {
         <div class="form-actions no-color">

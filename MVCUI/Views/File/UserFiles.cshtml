@@ -32,12 +32,12 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.ActionLink("Download", "GetFile", "File", new {fileId = item.Id}, null)
+                @Html.ActionLink("Download", "GetFile", "File", new { fileId = item.Id }, null)
             </td>
             @if (User.Identity.Name == item.User)
             {
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "File", new {fileId = item.Id}, null)
+                    @Html.ActionLink("Edit", "Edit", "File", new { fileId = item.Id }, null)
                 </td>
                 <td>
                     @Html.ActionLink("Delete", "Delete", "File", new { fileId = item.Id }, null)

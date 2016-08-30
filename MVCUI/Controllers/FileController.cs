@@ -96,9 +96,9 @@ namespace MVCUI.Controllers
         [HttpPost]
         [Authorize]
         [ActionName("Delete")]
-        public ActionResult ConfirmDelete(FileViewModel file)
+        public ActionResult ConfirmDelete(int fileId)
         {
-            fileService.DeleteFile(file.ToBllFile());
+            fileService.DeleteFile(fileService.GetFileEntity(fileId));
 
             return RedirectToAction("All");
         }

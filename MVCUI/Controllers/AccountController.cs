@@ -35,7 +35,6 @@ namespace MVCUI.Controllers
                 item.Files = fileService.GetAllFileEntitiesOfUser(item.Name).Select(file => file.ToMvcFile());
             }
             return View(list);
-            //return View();
         }
 
         [AllowAnonymous]
@@ -95,7 +94,7 @@ namespace MVCUI.Controllers
 
                 if (anyUser)
                 {
-                    ModelState.AddModelError("", "User with this address already registered.");
+                    ModelState.AddModelError("", "User with this name is already registered");
                     return View(registerViewModel);
                 }
 
@@ -120,6 +119,51 @@ namespace MVCUI.Controllers
             var user = userService.GetUserEntity(name).ToMvcUser();
 
             return View(user);
+        }
+
+        [Authorize]
+        public ActionResult ChangePassword(int id)
+        {
+            try
+            {
+                var user = userService.GetUserEntity(id);
+                if (User.Identity.Name == user.Name)
+                    return View(new ChangePasswordViewModel() { Id = user.Id });
+            }
+            catch (NullReferenceException)
+            {
+                var e = new HttpException(404, "There is no such user");
+                throw e;
+            }
+
+            var exception = new HttpException(403, "You cannot edit this user");
+            throw exception;
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ChangePassword(ChangePasswordViewModel changePasswordViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = userService.GetUserEntity(changePasswordViewModel.Id);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "User with this name doesn't exist.");
+                    return View(changePasswordViewModel);
+                }
+
+                var flag = ((CustomMembershipProvider) Membership.Provider).ChangePassword(user.Name,
+                    changePasswordViewModel.Password);
+
+                if (flag)
+                {
+                    return RedirectToAction("Profile", "Account", new { name = user.Name });
+                }
+                ModelState.AddModelError("", "Error changing password");
+            }
+            return View(changePasswordViewModel);
         }
     }
 }
