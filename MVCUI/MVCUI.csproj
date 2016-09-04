@@ -85,6 +85,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Moveax.Mvc.ErrorHandler, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moveax.Mvc.ErrorHandler.1.2.3.0\lib\net40\Moveax.Mvc.ErrorHandler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
@@ -186,12 +190,14 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PageLinks.cs" />
     <Compile Include="Infrastructure\Mappers\FileViewModelMappers.cs" />
     <Compile Include="Infrastructure\Mappers\RoleViewModelMappers.cs" />
     <Compile Include="Infrastructure\Mappers\UserViewModelMappers.cs" />
@@ -202,6 +208,7 @@
     <Compile Include="ViewModels\Account\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Account\LogOnViewModel.cs" />
     <Compile Include="ViewModels\File\FileViewModel.cs" />
+    <Compile Include="ViewModels\PageInfo.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\UserViewModel.cs" />
@@ -261,6 +268,10 @@
     <Content Include="Views\File\Delete.cshtml" />
     <Content Include="Views\File\Edit.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="404.html" />
+    <Content Include="403.html" />
+    <Content Include="Views\Error\Http404.cshtml" />
+    <Content Include="Views\Error\Default.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

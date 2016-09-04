@@ -9,6 +9,11 @@ namespace BLL.Interface.Services
 {
     public interface IFileService
     {
+        /// <summary>
+        /// Method returns BllFile by id
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>BllFile</returns>
         BllFile GetFileEntity(int id);
         IEnumerable<BllFile> GetAllFileEntities();
         IEnumerable<BllFile> GetAllPublicFileEntities();

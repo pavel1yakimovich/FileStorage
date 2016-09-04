@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MVCUI.ViewModels.File.FileViewModel>
+﻿@model MVCUI.ViewModels.IndexViewModel
+@using MVCUI.Helpers
 
 @{
     ViewBag.Title = ViewBag.Name;
@@ -8,18 +9,20 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Date)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Files.FirstOrDefault().User)
+        </th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Files)
     {
         <tr>
             <td>
@@ -32,17 +35,22 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.ActionLink("Download", "GetFile", "File", new { fileId = item.Id }, null)
+                @Html.ActionLink("Download", "GetFile", "File", new {fileId = item.Id}, null)
             </td>
             @if (User.Identity.Name == item.User)
             {
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "File", new { fileId = item.Id }, null)
+                    @Html.ActionLink("Edit", "Edit", "File", new {fileId = item.Id}, null)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", "File", new { fileId = item.Id }, null)
+                    @Html.ActionLink("Delete", "Delete", "File", new {fileId = item.Id}, null)
                 </td>
             }
         </tr>
     }
 </table>
+
+
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("UserFiles", new { name = ViewBag.Name, page = x }))
+</div>

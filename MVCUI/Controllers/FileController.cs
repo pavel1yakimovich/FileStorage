@@ -5,7 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BLL.Interface.Services;
+using Microsoft.Ajax.Utilities;
 using MVCUI.Infrastructure.Mappers;
+using MVCUI.ViewModels;
 using MVCUI.ViewModels.File;
 
 namespace MVCUI.Controllers
@@ -21,12 +23,16 @@ namespace MVCUI.Controllers
             this.fileService = fileService;
         }
 
-        public ActionResult All()
+        public ActionResult All(int page = 1)
         {
             var list = User.IsInRole("Admin") ? fileService.GetAllFileEntities().Select(file => file.ToMvcFile()) :
                 fileService.GetAllPublicFileEntities().Select(file => file.ToMvcFile());
-            
-            return View(list);
+
+            int pageSize = 3; // количество объектов на страницу
+            IEnumerable<FileViewModel> filesPerPages = list.Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = list.Count()};
+            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Files = filesPerPages };
+            return View(ivm);
         }
 
         [Authorize]
@@ -65,13 +71,18 @@ namespace MVCUI.Controllers
             return File(file.Content, file.Type, file.Name);
         }
 
-        public ActionResult UserFiles(string name)
+        public ActionResult UserFiles(string name, int page = 1)
         {
             ViewBag.Name = name;
             var list = User.IsInRole("Admin") || User.Identity.Name == name ? 
                 fileService.GetAllFileEntitiesOfUser(name).Select(file => file.ToMvcFile()) :
                 fileService.GetAllPublicFileEntitiesOfUser(name).Select(file => file.ToMvcFile());
-            return View(list);
+
+            int pageSize = 3; // количество объектов на страницу
+            IEnumerable<FileViewModel> filesPerPages = list.Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = list.Count() };
+            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Files = filesPerPages };
+            return View(ivm);
         }
 
         [Authorize]

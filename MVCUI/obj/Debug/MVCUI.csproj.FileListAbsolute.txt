@@ -162,3 +162,4 @@ E:\Trainings EPAM\FileStorage\MVCUI\bin\DAL.Interface.pdb
 E:\Trainings EPAM\FileStorage\MVCUI\bin\DAL.pdb
 E:\Trainings EPAM\FileStorage\MVCUI\bin\ORM.pdb
 E:\Trainings EPAM\FileStorage\MVCUI\bin\BLL.pdb
+E:\Trainings EPAM\FileStorage\MVCUI\bin\Moveax.Mvc.ErrorHandler.dll
