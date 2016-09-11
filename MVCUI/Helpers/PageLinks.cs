@@ -12,21 +12,20 @@ namespace MVCUI.Helpers
             PageInfo pageInfo, Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
+            TagBuilder ul = new TagBuilder("ul");
+            ul.AddCssClass("w3-pagination");
             for (int i = 1; i <= pageInfo.TotalPages; i++)
             {
+                var li = new TagBuilder("li");
                 TagBuilder tag = new TagBuilder("a");
                 tag.MergeAttribute("href", pageUrl(i));
                 tag.InnerHtml = i.ToString();
-                // если текущая страница, то выделяем ее,
-                // например, добавляя класс
-                if (i == pageInfo.PageNumber)
-                {
-                    tag.AddCssClass("selected");
-                    tag.AddCssClass("btn-primary");
-                }
-                tag.AddCssClass("btn btn-default");
-                result.Append(tag.ToString());
+                // если текущая страница, то выделяем ее, добавляя класс
+                tag.AddCssClass(i == pageInfo.PageNumber ? "w3-black" : "w3-hover-black");
+                li.InnerHtml = tag.ToString();
+                ul.InnerHtml += li.ToString();
             }
+            result.Append(ul.ToString());
             return MvcHtmlString.Create(result.ToString());
         }
     }

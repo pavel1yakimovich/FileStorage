@@ -5,7 +5,8 @@
     ViewBag.Title = "Files";
 }
 <h3>All files</h3>
-<table>
+<table class="table table-striped">
+    <thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Name)
@@ -20,37 +21,40 @@
             @Html.DisplayNameFor(model => model.Files.FirstOrDefault().User)
         </th>
     </tr>
+    </thead>
+    <tbody>
 
-    @foreach (var item in Model.Files)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.ActionLink(item.User, "Profile", "Account", new {name = item.User}, null)
-            </td>
-            <td>
-                @Html.ActionLink("Download", "GetFile", "File", new {fileId = item.Id}, null)
-            </td>
-            @if (User.Identity.Name == item.User || User.IsInRole("Admin"))
-            {
+        @foreach (var item in Model.Files)
+        {
+            <tr>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "File", new {fileId = item.Id}, null)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", "File", new { fileId = item.Id }, null)
+                    @Html.DisplayFor(modelItem => item.Description)
                 </td>
-            }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.ActionLink(item.User, "Profile", "Account", new {name = item.User}, new {@class = "w3-text-cyan"})
+                </td>
+                <td>
+                    <a href="@Url.Action("GetFile", "File", new { fileid = item.Id }, null)" class="btn btn-default" role="button">Download</a>
+                </td>
+                @if (User.Identity.Name == item.User || User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a href="@Url.Action("Edit", "File", new { fileid = item.Id }, null)" class="btn btn-default" role="button">Edit</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Delete", "File", new { fileid = item.Id }, null)" class="btn btn-danger" role="button">Delete</a>
+                    </td>
+                }
 
-        </tr>
-    }
+            </tr>
+        }
+    </tbody>
 </table>
 
 <div class="btn-group">

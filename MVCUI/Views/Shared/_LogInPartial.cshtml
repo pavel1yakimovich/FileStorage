@@ -1,29 +1,25 @@
 ﻿@*User.Identity.IsAuthenticated*@
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
     {
         @Html.AntiForgeryToken()
-
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Hello, " + User.Identity.Name + "!", "Profile", "Account", new { name = User.Identity.Name }, null)
+        
+            <li class="w3-hide-small">
+                @Html.ActionLink("Your profile, " + User.Identity.Name, "Profile", "Account", new { name = User.Identity.Name }, new { @class="w3-hover-white" })
             </li>
-            <li>
-                @Html.ActionLink("Upload new file", "Create", "File")
+            <li class="w3-hide-small">
+                @Html.ActionLink("Upload new file", "Create", "File", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })
             </li>
-            @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+            if (ViewContext.HttpContext.User.IsInRole("Admin"))
             {
-                <li>@Html.ActionLink("All users", "Index", "Account")</li>
+                <li class="w3-hide-small">@Html.ActionLink("All users", "Index", "Account", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })</li>
             }
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        </ul>
+            <li class="w3-hide-small"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+        <li class="w3-hide-small">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class="w3-hover-white" })</li>
+        <li class="w3-hide-small">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "w3-hover-white" })</li>
 }
