@@ -22,3 +22,19 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.btn-custom {
+    margin: 2px 7% 2px 7%;
+}
+
+.btn {
+    margin-top: 2px;
+}
+
+.btn-file {
+    margin: 0 0 7px 0;
+}
+
+.form-group {
+    padding-left: 15px
+}

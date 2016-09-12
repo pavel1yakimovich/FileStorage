@@ -4,8 +4,8 @@
 @{
     ViewBag.Title = "Files";
 }
-<h3>All files</h3>
-<table class="table table-striped">
+<h2>All files</h2>
+<table class="table table-hover">
     <thead>
     <tr>
         <th>
@@ -40,18 +40,14 @@
                     @Html.ActionLink(item.User, "Profile", "Account", new {name = item.User}, new {@class = "w3-text-cyan"})
                 </td>
                 <td>
-                    <a href="@Url.Action("GetFile", "File", new { fileid = item.Id }, null)" class="btn btn-default" role="button">Download</a>
-                </td>
+                    <a href="@Url.Action("GetFile", "File", new { fileid = item.Id }, null)" class="btn btn-custom btn-default" role="button">Download</a>
+                
                 @if (User.Identity.Name == item.User || User.IsInRole("Admin"))
                 {
-                    <td>
-                        <a href="@Url.Action("Edit", "File", new { fileid = item.Id }, null)" class="btn btn-default" role="button">Edit</a>
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Delete", "File", new { fileid = item.Id }, null)" class="btn btn-danger" role="button">Delete</a>
-                    </td>
+                    <a href="@Url.Action("Edit", "File", new {fileid = item.Id}, null)" class="btn btn-custom btn-default" role="button">Edit</a>
+                    <a href="@Url.Action("Delete", "File", new {fileid = item.Id}, null)" class="btn btn-custom btn-danger" role="button">Delete</a>
                 }
-
+                </td>
             </tr>
         }
     </tbody>

@@ -5,34 +5,38 @@
 }
 @if (Model.Name == User.Identity.Name)
 {
-    <h3>Your profile</h3>
+    <h2>Your profile</h2>
 }
 else
 {
-    <h3>Profile of @Model.Name</h3>
+    <h2>Profile of @Model.Name</h2>
 }
 
-@{
-    using (Html.BeginForm())
-    {
-        <div>
-            <h4>@Html.DisplayNameFor(model => model.Name) :</h4>
-            <h4>@Html.DisplayFor(model => model.Name)</h4>
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <hr/>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name)
+            :
+            @Html.DisplayFor(model => model.Name)
         </div>
-        if (Model.Name == User.Identity.Name)
+        @if (Model.Name == User.Identity.Name)
         {
-            @Html.ActionLink("Your files", "UserFiles", "File", new { name = User.Identity.Name }, null)
-
-            @Html.ActionLink("Change Password", "ChangePassword", "Account", new { id = Model.Id }, null)
+            <div>
+                <a href="@Url.Action("ChangePassword", "Account", new {id = Model.Id}, null)" class="btn btn-default" role="button">Change password</a>
+            </div>
+            <br/>
+            @Html.ActionLink("Your files", "UserFiles", "File", new {name = User.Identity.Name}, null)
         }
         else
         {
-            @Html.ActionLink("User's files", "UserFiles", "File", new { name = Model.Name }, null)
+            @Html.ActionLink("User's files", "UserFiles", "File", new {name = Model.Name}, null)
         }
-    }
+    </div>
 }
 
 @section Scripts
 {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+            @Scripts.Render("~/bundles/jqueryval")
+        }
