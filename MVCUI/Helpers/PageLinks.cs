@@ -20,8 +20,10 @@ namespace MVCUI.Helpers
                 TagBuilder tag = new TagBuilder("a");
                 tag.MergeAttribute("href", pageUrl(i));
                 tag.InnerHtml = i.ToString();
+                tag.AddCssClass("page");
                 // если текущая страница, то выделяем ее, добавляя класс
                 tag.AddCssClass(i == pageInfo.PageNumber ? "w3-black" : "w3-hover-black");
+                tag.MergeAttribute("value", i.ToString());
                 li.InnerHtml = tag.ToString();
                 ul.InnerHtml += li.ToString();
             }

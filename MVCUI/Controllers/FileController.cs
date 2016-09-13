@@ -30,9 +30,27 @@ namespace MVCUI.Controllers
 
             int pageSize = 3; // количество объектов на страницу
             IEnumerable<FileViewModel> filesPerPages = list.Skip((page - 1) * pageSize).Take(pageSize);
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = list.Count()};
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = list.Count() };
             IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Files = filesPerPages };
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(ivm);
+            }
+
             return View(ivm);
+        }
+
+        public PartialViewResult List(int page = 1)
+        {
+            var list = User.IsInRole("Admin") ? fileService.GetAllFileEntities().Select(file => file.ToMvcFile()) :
+                fileService.GetAllPublicFileEntities().Select(file => file.ToMvcFile());
+
+            int pageSize = 3; // количество объектов на страницу
+            IEnumerable<FileViewModel> filesPerPages = list.Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = list.Count() };
+            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Files = filesPerPages };
+            return PartialView("_FileTable",ivm);
         }
 
         [Authorize]

@@ -4,55 +4,41 @@
 @{
     ViewBag.Title = "Files";
 }
-<h2>All files</h2>
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Files.FirstOrDefault().User)
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-
-        @foreach (var item in Model.Files)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.ActionLink(item.User, "Profile", "Account", new {name = item.User}, new {@class = "w3-text-cyan"})
-                </td>
-                <td>
-                    <a href="@Url.Action("GetFile", "File", new { fileid = item.Id }, null)" class="btn btn-custom btn-default" role="button">Download</a>
-                
-                @if (User.Identity.Name == item.User || User.IsInRole("Admin"))
-                {
-                    <a href="@Url.Action("Edit", "File", new {fileid = item.Id}, null)" class="btn btn-custom btn-default" role="button">Edit</a>
-                    <a href="@Url.Action("Delete", "File", new {fileid = item.Id}, null)" class="btn btn-custom btn-danger" role="button">Delete</a>
-                }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<div class="btn-group">
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("All", new { page = x }))
+<div id="allFiles">
+    @Html.Partial("_FileTable", Model)
 </div>
+
+@section Scripts
+{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script type="text/javascript">
+        $(document)
+            .ready(function() {
+                $(document)
+                    .on('click',
+                        '.page',
+                        (function(e) {
+                            var newVal = $(e.target).attr("value");
+
+                            var url = 'File/All?page=' + newVal;
+
+                            $.ajax({
+                                url: url,
+                                cache: false,
+                                type: "GET",
+                                success: function(data) {
+
+                                    $('#allFiles').html(data);
+                                    //window.history.pushState("all files", "", "File/All?page=" + newVal);
+
+                                },
+                                error: function(reponse) {
+                                    alert("error : " + reponse);
+                                }
+                            });
+                            e.preventDefault();
+                        }));
+            });
+    </script>
+}
