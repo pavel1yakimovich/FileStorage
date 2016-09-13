@@ -16,16 +16,14 @@ namespace MVCUI.Helpers
             ul.AddCssClass("w3-pagination");
             for (int i = 1; i <= pageInfo.TotalPages; i++)
             {
-                var li = new TagBuilder("li");
-                TagBuilder tag = new TagBuilder("a");
-                tag.MergeAttribute("href", pageUrl(i));
-                tag.InnerHtml = i.ToString();
+                var tag = new TagBuilder("li");//find out why button is not black
+
+                tag.InnerHtml = pageUrl(i);
                 tag.AddCssClass("page");
                 // если текущая страница, то выделяем ее, добавляя класс
-                tag.AddCssClass(i == pageInfo.PageNumber ? "w3-black" : "w3-hover-black");
+                tag.AddCssClass(i == pageInfo.PageNumber ? "active" : "not-active");
                 tag.MergeAttribute("value", i.ToString());
-                li.InnerHtml = tag.ToString();
-                ul.InnerHtml += li.ToString();
+                ul.InnerHtml += tag.ToString();
             }
             result.Append(ul.ToString());
             return MvcHtmlString.Create(result.ToString());

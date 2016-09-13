@@ -4,59 +4,17 @@
 @{
     ViewBag.Title = ViewBag.Name;
 }
-<h2>Files of @ViewBag.Name</h2>
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Files.FirstOrDefault().User)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
 
-        @foreach (var item in Model.Files)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.ActionLink(item.User, "Profile", "Account", new { name = item.User }, new { @class = "w3-text-cyan" })
-                </td>
-                <td>
-                    <a href="@Url.Action("GetFile", "File", new { fileid = item.Id }, null)" class="btn btn-custom btn-default" role="button">Download</a>
-                </td>
-                @if (User.Identity.Name == item.User || User.IsInRole("Admin"))
-                {
-                    <td>
-                        <a href="@Url.Action("Edit", "File", new { fileid = item.Id }, null)" class="btn btn-custom btn-default" role="button">Edit</a>
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Delete", "File", new { fileid = item.Id }, null)" class="btn btn-custom btn-danger" role="button">Delete</a>
-                    </td>
-                }
+<div id="allFiles">
+    <h2>Files of @ViewBag.Name</h2>
+    @Html.Partial("_FileTable", Model.Files)
 
-            </tr>
-        }
-    </tbody>
-</table>
-
-<div class="btn-group">
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("UserFiles", new { name = ViewBag.Name, page = x }))
+    <div class="btn-group content-pager">
+        @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "UserFiles", "File", new {name = ViewBag.Name, page = x}, new AjaxOptions {UpdateTargetId = "allFiles"}).ToString())
+    </div>
 </div>
+
+@section Scripts
+{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

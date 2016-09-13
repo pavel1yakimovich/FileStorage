@@ -1,28 +1,28 @@
-﻿@model MVCUI.ViewModels.IndexViewModel
+﻿@model IEnumerable<MVCUI.ViewModels.File.FileViewModel>
+@using System.Web.Mvc.Ajax
 @using MVCUI.Helpers
 
 <div id="content">
-    <h2>All files</h2>
     <table class="table table-hover">
         <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Name)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Description)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Files.FirstOrDefault().Date)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Files.FirstOrDefault().User)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().User)
             </th>
         </tr>
         </thead>
         <tbody>
 
-        @foreach (var item in Model.Files)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -50,8 +50,4 @@
         }
         </tbody>
     </table>
-
-    <div class="btn-group content-pager">
-        @Html.PageLinks(Model.PageInfo, x => Url.Action("All","File", new {page = x}))
-    </div>
 </div>

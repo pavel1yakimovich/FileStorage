@@ -41,18 +41,6 @@ namespace MVCUI.Controllers
             return View(ivm);
         }
 
-        public PartialViewResult List(int page = 1)
-        {
-            var list = User.IsInRole("Admin") ? fileService.GetAllFileEntities().Select(file => file.ToMvcFile()) :
-                fileService.GetAllPublicFileEntities().Select(file => file.ToMvcFile());
-
-            int pageSize = 3; // количество объектов на страницу
-            IEnumerable<FileViewModel> filesPerPages = list.Skip((page - 1) * pageSize).Take(pageSize);
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = list.Count() };
-            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Files = filesPerPages };
-            return PartialView("_FileTable",ivm);
-        }
-
         [Authorize]
         public ActionResult Create()
         {
@@ -61,28 +49,31 @@ namespace MVCUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Create(FileViewModel file, HttpPostedFileBase uploadFile)
+        public ActionResult Upload( /*FileViewModel file = null,*/ /*HttpPostedFileBase uploadFile*/)
         {
+            var file = new FileViewModel();
             byte[] fileData;
-
-            using (var binaryReader = new BinaryReader(uploadFile.InputStream))
+            using (var binaryReader = new BinaryReader(Request.InputStream))
             {
-                fileData = binaryReader.ReadBytes(uploadFile.ContentLength);
+                fileData = binaryReader.ReadBytes(Request.ContentLength);
             }
 
-            file.Name = uploadFile.FileName;
+            file.Name = Request.Headers["X-FILE-NAME"];
             file.Content = fileData;
             file.Date = DateTime.Now;
-            file.Type = uploadFile.ContentType;
+            file.Type = Request.Headers["X-FILE-TYPE"];
             file.User = User.Identity.Name;
             file.UserId = userService.GetUserEntity(User.Identity.Name).Id;
-            
+            file.IsPublic = (Request.Headers["X-FILE-ISPUBLIC"] == "true");
+            file.Description = Request.Headers["X-FILE-Description"];
+
             fileService.CreateFile(file.ToBllFile());
+
 
             return RedirectToAction("All");
 
         }
-        
+
         public FileResult GetFile(int fileId)
         {
             var file = fileService.GetFileEntity(fileId).ToMvcFile();
@@ -100,6 +91,11 @@ namespace MVCUI.Controllers
             IEnumerable<FileViewModel> filesPerPages = list.Skip((page - 1) * pageSize).Take(pageSize);
             PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = list.Count() };
             IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Files = filesPerPages };
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(ivm);
+            }
+
             return View(ivm);
         }
 

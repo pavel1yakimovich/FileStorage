@@ -15,7 +15,7 @@
             {
                 <li class="w3-hide-small">@Html.ActionLink("All users", "Index", "Account", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })</li>
             }
-            <li class="w3-hide-small"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            <li class="w3-hide-small">@Html.ActionLink("Log off", "LogOff", "Account", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })</li>
     }
 }
 else

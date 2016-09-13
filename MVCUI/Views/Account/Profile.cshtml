@@ -1,4 +1,5 @@
-﻿@model MVCUI.ViewModels.Account.UserViewModel
+﻿@using MVCUI.Helpers
+@model MVCUI.ViewModels.Account.UserViewModel
 
 @{
     ViewBag.Title = "Profile";
@@ -26,14 +27,10 @@ else
             <div>
                 <a href="@Url.Action("ChangePassword", "Account", new {id = Model.Id}, null)" class="btn btn-default" role="button">Change password</a>
             </div>
-            <br/>
-            @Html.ActionLink("Your files", "UserFiles", "File", new {name = User.Identity.Name}, null)
-        }
-        else
-        {
-            @Html.ActionLink("User's files", "UserFiles", "File", new {name = Model.Name}, null)
         }
     </div>
+    @*@Html.Partial("_FileTable", Model.Files)*@
+
 }
 
 @section Scripts

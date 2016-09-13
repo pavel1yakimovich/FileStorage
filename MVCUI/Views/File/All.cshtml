@@ -4,41 +4,16 @@
 @{
     ViewBag.Title = "Files";
 }
-<div id="allFiles">
-    @Html.Partial("_FileTable", Model)
-</div>
 
+<div id="allFiles">
+    <h2>All files</h2>
+    @Html.Partial("_FileTable", Model.Files)
+
+    <div class="btn-group content-pager">
+        @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "All", "File", new { page = x }, new AjaxOptions { UpdateTargetId = "allFiles" }).ToString())
+    </div>
+</div>
 @section Scripts
 {
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-
-    <script type="text/javascript">
-        $(document)
-            .ready(function() {
-                $(document)
-                    .on('click',
-                        '.page',
-                        (function(e) {
-                            var newVal = $(e.target).attr("value");
-
-                            var url = 'File/All?page=' + newVal;
-
-                            $.ajax({
-                                url: url,
-                                cache: false,
-                                type: "GET",
-                                success: function(data) {
-
-                                    $('#allFiles').html(data);
-                                    //window.history.pushState("all files", "", "File/All?page=" + newVal);
-
-                                },
-                                error: function(reponse) {
-                                    alert("error : " + reponse);
-                                }
-                            });
-                            e.preventDefault();
-                        }));
-            });
-    </script>
 }
