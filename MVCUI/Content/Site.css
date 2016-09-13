@@ -51,7 +51,7 @@ textarea {
     
     width: 400px;
     padding: 50px 0;
-    margin: 50px auto;
+    margin:20px 0 20px 0;
     
     background: #eee;
     border: 1px solid #ccc;
@@ -72,6 +72,18 @@ textarea {
 }
 
 #dropZone.drop {
-    background: #afa;
-    border-color: #0f0;
+    background: #7FFFD4;
+    border-color: #00FFFF;
+}
+
+.display-name {
+    width: 150px;
+}
+
+.display-description {
+    width: 175px;
+}
+
+.description {
+    margin-bottom: 7px;
 }

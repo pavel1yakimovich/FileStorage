@@ -49,27 +49,38 @@ namespace MVCUI.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Upload( /*FileViewModel file = null,*/ /*HttpPostedFileBase uploadFile*/)
+        public ActionResult Upload( FileViewModel file = null, HttpPostedFileBase uploadFile = null)
         {
-            var file = new FileViewModel();
             byte[] fileData;
-            using (var binaryReader = new BinaryReader(Request.InputStream))
+            if (uploadFile == null)
             {
-                fileData = binaryReader.ReadBytes(Request.ContentLength);
+                file = new FileViewModel();
+                using (var binaryReader = new BinaryReader(Request.InputStream))
+                {
+                    fileData = binaryReader.ReadBytes(Request.ContentLength);
+                }
+
+                file.Name = Request.Headers["X-FILE-NAME"];
+                file.Type = Request.Headers["X-FILE-TYPE"];
+                file.IsPublic = (Request.Headers["X-FILE-ISPUBLIC"] == "true");
+                file.Description = Request.Headers["X-FILE-Description"];
+            }
+            else
+            {
+                using (var binaryReader = new BinaryReader(uploadFile.InputStream))
+                {
+                    fileData = binaryReader.ReadBytes(uploadFile.ContentLength);
+                }
+                file.Name = uploadFile.FileName;
+                file.Type = uploadFile.ContentType;
             }
 
-            file.Name = Request.Headers["X-FILE-NAME"];
             file.Content = fileData;
-            file.Date = DateTime.Now;
-            file.Type = Request.Headers["X-FILE-TYPE"];
-            file.User = User.Identity.Name;
             file.UserId = userService.GetUserEntity(User.Identity.Name).Id;
-            file.IsPublic = (Request.Headers["X-FILE-ISPUBLIC"] == "true");
-            file.Description = Request.Headers["X-FILE-Description"];
-
+            file.User = User.Identity.Name;
+            file.Date = DateTime.Now;
             fileService.CreateFile(file.ToBllFile());
-
-
+            
             return RedirectToAction("All");
 
         }

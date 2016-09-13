@@ -6,10 +6,10 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>
+            <th class="display-name">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
             </th>
-            <th>
+            <th class="display-description">
                 @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
             </th>
             <th>
@@ -25,10 +25,10 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td class="display-name">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
+                <td class="display-description">
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
