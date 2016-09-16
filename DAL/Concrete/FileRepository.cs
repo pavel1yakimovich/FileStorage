@@ -14,10 +14,12 @@ namespace DAL.Concrete
 {
     public class FileRepository : IRepository<DalFile>
     {
+        private ILogger logger;
         private readonly DbContext context;
 
-        public FileRepository(DbContext uow)
+        public FileRepository(DbContext uow, ILogger log)
         {
+            logger = log;
             this.context = uow;
         }
 
@@ -62,10 +64,20 @@ namespace DAL.Concrete
 
         public void Update(DalFile entity)
         {
-            var oldFile = context.Set<File>().Single(u => u.Id == entity.Id);
-            oldFile.Date = entity.Date;
-            oldFile.Description = entity.Description;
-            oldFile.IsPublic = entity.IsPublic;
+            try
+            {
+                var oldFile = context.Set<File>().Single(u => u.Id == entity.Id);
+                oldFile.Date = entity.Date;
+                oldFile.Description = entity.Description;
+                oldFile.IsPublic = entity.IsPublic;
+
+                logger.Info($"File {oldFile.Name} has been updated.");
+            }
+            catch (Exception e)
+            {
+                logger.Error(e, e.Message);
+                throw;
+            }
         }
     }
 }

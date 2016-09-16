@@ -6,14 +6,14 @@
         @Html.AntiForgeryToken()
         
             <li class="w3-hide-small">
-                @Html.ActionLink("Your profile, " + User.Identity.Name, "Profile", "Account", new { name = User.Identity.Name }, new { @class="w3-hover-white" })
+                @Html.ActionLink("Your profile, " + User.Identity.Name, "UserFiles", "File", new { name = User.Identity.Name }, new { @class="w3-hover-white" })
             </li>
             <li class="w3-hide-small">
                 @Html.ActionLink("Upload new file", "Create", "File", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })
             </li>
             if (ViewContext.HttpContext.User.IsInRole("Admin"))
             {
-                <li class="w3-hide-small">@Html.ActionLink("All users", "Index", "Account", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })</li>
+                <li class="w3-hide-small">@Html.ActionLink("All users", "All", "Account", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })</li>
             }
             <li class="w3-hide-small">@Html.ActionLink("Log off", "LogOff", "Account", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })</li>
     }

@@ -35,7 +35,7 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @Html.ActionLink(item.User, "Profile", "Account", new {name = item.User}, new {@class = "w3-text-cyan"})
+                    @Html.ActionLink(item.User, "UserFiles", "File", new {name = item.User}, new {@class = "w3-text-cyan"})
                 </td>
                 <td>
                     <a href="@Url.Action("GetFile", "File", new {fileid = item.Id}, null)" class="btn btn-custom btn-default" role="button">Download</a>

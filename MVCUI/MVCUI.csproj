@@ -262,19 +262,19 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\All.cshtml" />
     <Content Include="Views\File\All.cshtml" />
     <Content Include="Views\File\Create.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_LogInPartial.cshtml" />
     <Content Include="Views\File\UserFiles.cshtml" />
-    <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\File\Delete.cshtml" />
     <Content Include="Views\File\Edit.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Error\Http404.cshtml" />
     <Content Include="Views\Error\Default.cshtml" />
     <Content Include="Views\Shared\_FileTable.cshtml" />
+    <Content Include="Views\Shared\_Users.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

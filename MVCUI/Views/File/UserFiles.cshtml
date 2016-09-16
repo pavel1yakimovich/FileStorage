@@ -1,16 +1,55 @@
-﻿@model MVCUI.ViewModels.IndexViewModel
+﻿@using System.Web.Mvc.Html
 @using MVCUI.Helpers
+@using MVCUI.ViewModels.File
+@model MVCUI.ViewModels.IndexViewModel<FileViewModel>
 
 @{
-    ViewBag.Title = ViewBag.Name;
+    ViewBag.Title = $"Profile of { ViewBag.Name }";
 }
 
 <div id="allFiles">
-    <h2>Files of @ViewBag.Name</h2>
-    @Html.Partial("_FileTable", Model.Files)
+    @if (ViewBag.Name == User.Identity.Name)
+    {
+        <h2>Your profile</h2>
+    }
+    else
+    {
+        <h2>Profile of @ViewBag.Name</h2>
+    }
+
+    <div class="form-horizontal">
+        <hr/>
+        <div class="form-group">
+            <div class="form-group">
+                <label>Name</label>
+                :
+                @ViewBag.Name
+            </div>
+        </div>
+
+        @if (ViewBag.Name == User.Identity.Name)
+        {
+            <div>
+                <a href="@Url.Action("ChangePassword", "Account", new {id = ViewBag.Id}, null)" class="btn btn-default" role="button">Change password</a>
+            </div>
+        }
+    </div>
+
+    @if (ViewBag.Name == User.Identity.Name)
+    {
+        <h2>Your files</h2>
+    }
+    else
+    {
+        <h2>Files of @ViewBag.Name</h2>
+    }
+    @if (Model.Items.Any())
+    {
+        @Html.Partial("_FileTable", Model.Items)
+    }
 
     <div class="btn-group content-pager">
-        @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "UserFiles", "File", new {name = ViewBag.Name, page = x}, new AjaxOptions {UpdateTargetId = "allFiles"}).ToString())
+        @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "UserFiles", "File", new { name = ViewBag.Name, page = x }, new AjaxOptions { UpdateTargetId = "allFiles" }).ToString())
     </div>
 </div>
 

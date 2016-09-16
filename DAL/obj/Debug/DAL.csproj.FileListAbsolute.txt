@@ -26,3 +26,5 @@ E:\Trainings EPAM\FileStorage\DAL\bin\Debug\EntityFramework.SqlServer.xml
 E:\Trainings EPAM\FileStorage\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 E:\Trainings EPAM\FileStorage\DAL\obj\Debug\DAL.dll
 E:\Trainings EPAM\FileStorage\DAL\obj\Debug\DAL.pdb
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\NLog.dll
+E:\Trainings EPAM\FileStorage\DAL\bin\Debug\NLog.xml

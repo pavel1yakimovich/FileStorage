@@ -16,9 +16,9 @@ namespace MVCUI.ViewModels
             => (int) Math.Ceiling((decimal) TotalItems/PageSize);
     }
 
-    public class IndexViewModel
+    public class IndexViewModel<T>
     {
-        public IEnumerable<FileViewModel> Files { get; set; }
+        public IEnumerable<T> Items { get; set; }
         public PageInfo PageInfo { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model MVCUI.ViewModels.IndexViewModel
+﻿@using MVCUI.ViewModels.File
+@model MVCUI.ViewModels.IndexViewModel<FileViewModel>
 @using MVCUI.Helpers
 
 @{
@@ -7,7 +8,7 @@
 
 <div id="allFiles">
     <h2>All files</h2>
-    @Html.Partial("_FileTable", Model.Files)
+    @Html.Partial("_FileTable", Model.Items)
 
     <div class="btn-group content-pager">
         @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "All", "File", new { page = x }, new AjaxOptions { UpdateTargetId = "allFiles" }).ToString())

@@ -16,6 +16,7 @@ namespace MVCUI.Controllers
     {
         private readonly IUserService userService;
         private readonly IFileService fileService;
+        private const int pageSize = 3;
 
         public FileController(IFileService fileService, IUserService userService)
         {
@@ -27,11 +28,8 @@ namespace MVCUI.Controllers
         {
             var list = User.IsInRole("Admin") ? fileService.GetAllFileEntities().Select(file => file.ToMvcFile()) :
                 fileService.GetAllPublicFileEntities().Select(file => file.ToMvcFile());
-
-            int pageSize = 3; // количество объектов на страницу
-            IEnumerable<FileViewModel> filesPerPages = list.Skip((page - 1) * pageSize).Take(pageSize);
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = list.Count() };
-            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Files = filesPerPages };
+            
+            var ivm = GetIvm(list, page);
 
             if (Request.IsAjaxRequest())
             {
@@ -90,18 +88,18 @@ namespace MVCUI.Controllers
             var file = fileService.GetFileEntity(fileId).ToMvcFile();
             return File(file.Content, file.Type, file.Name);
         }
-
+        
         public ActionResult UserFiles(string name, int page = 1)
         {
             ViewBag.Name = name;
-            var list = User.IsInRole("Admin") || User.Identity.Name == name ? 
+            ViewBag.Id = userService.GetUserEntity(name).Id;
+
+            var list = User.IsInRole("Admin") || User.Identity.Name == name ?
                 fileService.GetAllFileEntitiesOfUser(name).Select(file => file.ToMvcFile()) :
                 fileService.GetAllPublicFileEntitiesOfUser(name).Select(file => file.ToMvcFile());
 
-            int pageSize = 3; // количество объектов на страницу
-            IEnumerable<FileViewModel> filesPerPages = list.Skip((page - 1) * pageSize).Take(pageSize);
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = list.Count() };
-            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, Files = filesPerPages };
+            var ivm = GetIvm(list, page);
+
             if (Request.IsAjaxRequest())
             {
                 return PartialView(ivm);
@@ -109,7 +107,7 @@ namespace MVCUI.Controllers
 
             return View(ivm);
         }
-
+        
         [Authorize]
         public ActionResult Delete(int fileId)
         {
@@ -166,6 +164,15 @@ namespace MVCUI.Controllers
             fileService.UpdateFile(file.ToBllFile());
 
             return RedirectToAction("All");
+        }
+
+        private IndexViewModel<FileViewModel> GetIvm(IEnumerable<FileViewModel> list, int page)
+        {
+            IEnumerable<FileViewModel> filesPerPages = list.Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = list.Count() };
+            IndexViewModel<FileViewModel> ivm = new IndexViewModel<FileViewModel> { PageInfo = pageInfo, Items = filesPerPages };
+
+            return ivm;
         }
     }
 }

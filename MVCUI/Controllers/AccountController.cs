@@ -17,6 +17,7 @@ namespace MVCUI.Controllers
     {
         private readonly IUserService userService;
         private readonly IFileService fileService;
+        private const int pageSize = 5;
 
         public AccountController(IUserService userService, IFileService fileService)
         {
@@ -25,16 +26,26 @@ namespace MVCUI.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [ActionName("Index")]
-        public ActionResult GetAllUsers()
+        [ActionName("All")]
+        public ActionResult GetAllUsers(int page = 1)
         {
             var list = userService.GetAllUserEntities().Select(user => user.ToMvcUser());
+
+            IEnumerable<UserViewModel> filesPerPages = list.Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = list.Count() };
+            IndexViewModel<UserViewModel> ivm = new IndexViewModel<UserViewModel> { PageInfo = pageInfo, Items = filesPerPages };
 
             foreach (UserViewModel item in list)
             {
                 item.Files = fileService.GetAllFileEntitiesOfUser(item.Name).Select(file => file.ToMvcFile());
             }
-            return View(list);
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(ivm);
+            }
+
+            return View(ivm);
         }
 
         [AllowAnonymous]
@@ -111,16 +122,7 @@ namespace MVCUI.Controllers
             }
             return View(registerViewModel);
         }
-
-        [AllowAnonymous]
-        [ActionName("Profile")]
-        public ActionResult GetProfile(string name)
-        {
-            var user = userService.GetUserEntity(name).ToMvcUser();
-
-            return View(user);
-        }
-
+        
         [Authorize]
         public ActionResult ChangePassword(int id)
         {

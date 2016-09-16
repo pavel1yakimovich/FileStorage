@@ -1,0 +1,19 @@
+﻿@using MVCUI.Helpers
+@model MVCUI.ViewModels.IndexViewModel<MVCUI.ViewModels.Account.UserViewModel>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<div id="allUsers">
+    <h2>All users</h2>
+    @Html.Partial("_Users", Model.Items)
+
+    <div class="btn-group content-pager">
+        @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "All", "Account", new { page = x }, new AjaxOptions { UpdateTargetId = "allUsers" }).ToString())
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}
