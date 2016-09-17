@@ -4,13 +4,15 @@
 @{
     ViewBag.Title = "Users";
 }
-
-<div id="allUsers">
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+<div id="allItems">
     <h2>All users</h2>
     @Html.Partial("_Users", Model.Items)
 
     <div class="btn-group content-pager">
-        @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "All", "Account", new { page = x }, new AjaxOptions { UpdateTargetId = "allUsers" }).ToString())
+        @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "All", "Account", new { page = x }, new AjaxOptions { UpdateTargetId = "allItems" }).ToString())
     </div>
 </div>
 @section Scripts

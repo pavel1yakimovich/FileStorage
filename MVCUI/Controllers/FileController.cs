@@ -107,6 +107,21 @@ namespace MVCUI.Controllers
 
             return View(ivm);
         }
+
+        //public ActionResult Search(string str, int page = 1)
+        //{
+        //    var list = User.IsInRole("Admin")
+        //        ? fileService.GetAllFileEntities()
+        //            .Where(x => x.Name.Contains(str) || x.Description.Contains(str))
+        //            .ToList().Select(file => file.ToMvcFile())
+        //        : fileService.GetAllPublicFileEntities()
+        //            .Where(x => x.Name.Contains(str) || x.Description.Contains(str))
+        //            .ToList().Select(file => file.ToMvcFile());
+
+        //    var ivm = GetIvm(list, page);
+
+        //    return PartialView(ivm);
+        //}
         
         [Authorize]
         public ActionResult Delete(int fileId)

@@ -6,12 +6,12 @@
     ViewBag.Title = "Files";
 }
 
-<div id="allFiles">
+<div id="allItems">
     <h2>All files</h2>
     @Html.Partial("_FileTable", Model.Items)
 
     <div class="btn-group content-pager">
-        @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "All", "File", new { page = x }, new AjaxOptions { UpdateTargetId = "allFiles" }).ToString())
+        @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "All", "File", new { page = x }, new AjaxOptions { UpdateTargetId = "allItems" }).ToString())
     </div>
 </div>
 @section Scripts

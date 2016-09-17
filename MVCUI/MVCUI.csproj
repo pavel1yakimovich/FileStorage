@@ -275,6 +275,7 @@
     <Content Include="Views\Error\Default.cshtml" />
     <Content Include="Views\Shared\_FileTable.cshtml" />
     <Content Include="Views\Shared\_Users.cshtml" />
+    <Content Include="Views\Account\_Login.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

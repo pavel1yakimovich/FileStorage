@@ -7,7 +7,7 @@
     ViewBag.Title = $"Profile of { ViewBag.Name }";
 }
 
-<div id="allFiles">
+<div id="allItems">
     @if (ViewBag.Name == User.Identity.Name)
     {
         <h2>Your profile</h2>
@@ -37,11 +37,11 @@
 
     @if (ViewBag.Name == User.Identity.Name)
     {
-        <h2>Your files</h2>
+        <h3>Your files</h3>
     }
     else
     {
-        <h2>Files of @ViewBag.Name</h2>
+        <h3>Files of @ViewBag.Name</h3>
     }
     @if (Model.Items.Any())
     {
@@ -49,7 +49,7 @@
     }
 
     <div class="btn-group content-pager">
-        @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "UserFiles", "File", new { name = ViewBag.Name, page = x }, new AjaxOptions { UpdateTargetId = "allFiles" }).ToString())
+        @Html.PageLinks(Model.PageInfo, x => Ajax.ActionLink(x.ToString(), "UserFiles", "File", new { name = ViewBag.Name, page = x }, new AjaxOptions { UpdateTargetId = "allItems" }).ToString())
     </div>
 </div>
 
