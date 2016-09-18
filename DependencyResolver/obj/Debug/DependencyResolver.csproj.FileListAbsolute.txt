@@ -48,3 +48,4 @@ E:\Trainings EPAM\FileStorage\DependencyResolver\obj\Debug\DependencyResolver.dl
 E:\Trainings EPAM\FileStorage\DependencyResolver\obj\Debug\DependencyResolver.pdb
 E:\Trainings EPAM\FileStorage\DependencyResolver\bin\Debug\NLog.dll
 E:\Trainings EPAM\FileStorage\DependencyResolver\bin\Debug\NLog.xml
+E:\Trainings EPAM\FileStorage\DependencyResolver\bin\Debug\NLog.config

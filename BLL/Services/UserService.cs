@@ -13,9 +13,9 @@ namespace BLL.Services
     public class UserService : IUserService
     {
         private readonly IUnitOfWork uow;
-        private readonly IRepository<DalUser> userRepository;
+        private readonly IUserRepository userRepository;
 
-        public UserService(IUnitOfWork uow, IRepository<DalUser> repository)
+        public UserService(IUnitOfWork uow, IUserRepository repository)
         {
             this.uow = uow;
             this.userRepository = repository;
@@ -45,8 +45,7 @@ namespace BLL.Services
 
         public BllUser GetUserEntity(string name)
         {
-            return userRepository.GetAll().FirstOrDefault(user => user.Name == name).ToBllUser();
-            //return userRepository.GetByPredicate(user => user.Email == email).ToBllUser();
+            return userRepository.GetByName(name).ToBllUser();
         }
 
         public void UpdateUser(BllUser user)

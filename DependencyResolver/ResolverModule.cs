@@ -27,10 +27,10 @@ namespace DependencyResolver
             kernel.Bind<IFileService>().To<FileService>();
             kernel.Bind<IUserService>().To<UserService>();
 
-            kernel.Bind<IRepository<DalUser>>().To<UserRepository>();
+            kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<IRepository<DalFile>>().To<FileRepository>();
             kernel.Bind<IRoleRepository>().To<RoleRepository>();
-            kernel.Bind<ILogger>().To<NLogAdaptor>();
+            kernel.Bind<ILogger>().To<NLogAdaptor>().InSingletonScope();
         }
     }
 }

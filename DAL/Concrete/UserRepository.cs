@@ -11,7 +11,7 @@ using ORM;
 
 namespace DAL.Concrete
 {
-    public class UserRepository : IRepository<DalUser>
+    public class UserRepository : IUserRepository
     {
         private readonly DbContext context;
 
@@ -31,21 +31,15 @@ namespace DAL.Concrete
             return ormUser.ToDalUser();
         }
 
-        public DalUser GetByPredicate(Expression<Func<DalUser, bool>> f)
+        public DalUser GetByName(string name)
         {
-            //Expression<Func<DalUser, bool>> -> Expression<Func<User, bool>> (!)
-            var param = Expression.Parameter(typeof(User));
-            var body = new Visitor<User>(param).Visit(f.Body);
-            Expression<Func<User, bool>> expr = Expression.Lambda<Func<User, bool>>(body, param);
-            var user = context.Set<User>().FirstOrDefault(expr);
-
-            return user.ToDalUser();
+            var ormUser = context.Set<User>().FirstOrDefault(user => user.Name == name);
+            return ormUser.ToDalUser();
         }
 
         public void Create(DalUser dalUser)
         {
             var user = dalUser.ToOrmUser();
-
             var roles = new List<Role>();
 
             foreach (var role in user.Roles)
@@ -66,7 +60,7 @@ namespace DAL.Concrete
             context.Set<User>().Remove(user);
         }
 
-        public void Update(DalUser entity) // add body of method
+        public void Update(DalUser entity) 
         {
             var oldUser = context.Set<User>().Single(u => u.Id == entity.Id);
             oldUser.Name = entity.Name;

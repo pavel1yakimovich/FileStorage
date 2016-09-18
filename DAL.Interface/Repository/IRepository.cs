@@ -19,14 +19,7 @@ namespace DAL.Interface.Repository
         /// <param name="key">id</param>
         /// <returns>Entity</returns>
         TEntity GetById(int key);
-
-        /// <summary>
-        /// Method for finding entity by predicate
-        /// </summary>
-        /// <param name="f">Expression</param>
-        /// <returns>Entity</returns>
-        TEntity GetByPredicate(Expression<Func<TEntity, bool>> f); // maybe, it doesn't work because it returns TEntity, not IEnumerable
-
+        
         /// <summary>
         /// Creates entity in DB
         /// </summary>

@@ -15,9 +15,9 @@ namespace BLL.Services
     {
         private readonly IUnitOfWork uow;
         private readonly IRepository<DalFile> fileRepository;
-        private readonly IRepository<DalUser> userRepository;
+        private readonly IUserRepository userRepository;
 
-        public FileService(IUnitOfWork uow, IRepository<DalFile> fileRepository, IRepository<DalUser> userrRepository)
+        public FileService(IUnitOfWork uow, IRepository<DalFile> fileRepository, IUserRepository userrRepository)
         {
             this.uow = uow;
             this.fileRepository = fileRepository;
@@ -34,34 +34,27 @@ namespace BLL.Services
             return fileRepository.GetAll().Select(file => file.ToBllFile());
         }
 
-        public IEnumerable<BllFile> GetAllPublicFileEntities() // make it through getbypredicate
+        public IEnumerable<BllFile> GetAllPublicFileEntities()
         {
-            var publicFiles = new List<BllFile>();
-            var list = fileRepository.GetAll().Where(file => file.IsPublic);
+            var list = fileRepository.GetAll().Where(file => file.IsPublic).Select(file => file.ToBllFile());
 
-            foreach (var item in list)
-            {
-                publicFiles.Add(item.ToBllFile());
-            }
-
-            return publicFiles;
+            return list;
         }
 
         public IEnumerable<BllFile> GetAllFileEntitiesOfUser(string user)
         {
-            var list = new List<BllFile>();
             var userService = new UserService(uow, userRepository);
             var owner = userService.GetUserEntity(user);
             try
             {
-                list = fileRepository.GetAll().Where(file => file.UserId == owner.Id)
+                var list = fileRepository.GetAll().Where(file => file.UserId == owner.Id)
                     .Select(file => file.ToBllFile()).ToList();
 
                 return list;
             }
             catch (Exception)
             {
-                return list;
+                return new List<BllFile>();
             }
         }
 

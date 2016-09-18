@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.Interface.DTO;
 using DAL.Interface.Repository;
 using DAL.Mappers;
@@ -14,12 +11,10 @@ namespace DAL.Concrete
 {
     public class FileRepository : IRepository<DalFile>
     {
-        private ILogger logger;
         private readonly DbContext context;
 
-        public FileRepository(DbContext uow, ILogger log)
+        public FileRepository(DbContext uow)
         {
-            logger = log;
             this.context = uow;
         }
 
@@ -52,32 +47,12 @@ namespace DAL.Concrete
             return ormFile.ToDalFile();
         }
 
-        public DalFile GetByPredicate(Expression<Func<DalFile, bool>> f)
-        {
-            var param = Expression.Parameter(typeof(File));
-            var body = new Visitor<File>(param).Visit(f.Body);
-            Expression<Func<File, bool>> expr = Expression.Lambda<Func<File, bool>>(body, param);
-            var user = context.Set<File>().FirstOrDefault(expr);
-
-            return user.ToDalFile();
-        }
-
         public void Update(DalFile entity)
         {
-            try
-            {
-                var oldFile = context.Set<File>().Single(u => u.Id == entity.Id);
-                oldFile.Date = entity.Date;
-                oldFile.Description = entity.Description;
-                oldFile.IsPublic = entity.IsPublic;
-
-                logger.Info($"File {oldFile.Name} has been updated.");
-            }
-            catch (Exception e)
-            {
-                logger.Error(e, e.Message);
-                throw;
-            }
+            var oldFile = context.Set<File>().Single(u => u.Id == entity.Id);
+            oldFile.Date = entity.Date;
+            oldFile.Description = entity.Description;
+            oldFile.IsPublic = entity.IsPublic;
         }
     }
 }

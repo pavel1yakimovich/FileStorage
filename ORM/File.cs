@@ -12,7 +12,7 @@ namespace ORM
 
         public int User_Id { get; set; }
 
-        public bool IsPublic { get; set; }
+        public Boolean IsPublic { get; set; }
 
         [Required]
         public string Name { get; set; }

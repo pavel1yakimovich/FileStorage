@@ -165,3 +165,4 @@ E:\Trainings EPAM\FileStorage\MVCUI\bin\BLL.pdb
 E:\Trainings EPAM\FileStorage\MVCUI\bin\Moveax.Mvc.ErrorHandler.dll
 E:\Trainings EPAM\FileStorage\MVCUI\bin\NLog.dll
 E:\Trainings EPAM\FileStorage\MVCUI\bin\NLog.xml
+E:\Trainings EPAM\FileStorage\MVCUI\bin\NLog.config

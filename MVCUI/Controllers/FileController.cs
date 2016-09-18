@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BLL.Interface.Services;
-using Microsoft.Ajax.Utilities;
 using MVCUI.Infrastructure.Mappers;
 using MVCUI.ViewModels;
 using MVCUI.ViewModels.File;
@@ -16,7 +15,7 @@ namespace MVCUI.Controllers
     {
         private readonly IUserService userService;
         private readonly IFileService fileService;
-        private const int pageSize = 3;
+        private const int pageSize = 6;
 
         public FileController(IFileService fileService, IUserService userService)
         {
@@ -30,7 +29,6 @@ namespace MVCUI.Controllers
                 fileService.GetAllPublicFileEntities().Select(file => file.ToMvcFile());
             
             var ivm = GetIvm(list, page);
-
             if (Request.IsAjaxRequest())
             {
                 return PartialView(ivm);
@@ -108,21 +106,6 @@ namespace MVCUI.Controllers
             return View(ivm);
         }
 
-        //public ActionResult Search(string str, int page = 1)
-        //{
-        //    var list = User.IsInRole("Admin")
-        //        ? fileService.GetAllFileEntities()
-        //            .Where(x => x.Name.Contains(str) || x.Description.Contains(str))
-        //            .ToList().Select(file => file.ToMvcFile())
-        //        : fileService.GetAllPublicFileEntities()
-        //            .Where(x => x.Name.Contains(str) || x.Description.Contains(str))
-        //            .ToList().Select(file => file.ToMvcFile());
-
-        //    var ivm = GetIvm(list, page);
-
-        //    return PartialView(ivm);
-        //}
-        
         [Authorize]
         public ActionResult Delete(int fileId)
         {

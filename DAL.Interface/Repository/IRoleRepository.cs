@@ -18,10 +18,10 @@ namespace DAL.Interface.Repository
         DalRole GetById(int key);
 
         /// <summary>
-        /// Method for finding role entity by predicate
+        /// Method for getting role entity by Name
         /// </summary>
-        /// <param name="f">Expression</param>
+        /// <param name="name">name</param>
         /// <returns>Entity</returns>
-        DalRole GetByPredicate(Expression<Func<DalRole, bool>> f);
+        DalRole GetByName(string name);
     }
 }

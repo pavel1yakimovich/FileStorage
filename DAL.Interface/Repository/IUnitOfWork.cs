@@ -8,6 +8,5 @@ namespace DAL.Interface.Repository
         /// Pattern UOW
         /// </summary>
         void Commit();
-        //Rollback
     }
 }

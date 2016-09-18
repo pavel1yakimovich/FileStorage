@@ -161,7 +161,7 @@ namespace MVCUI.Controllers
 
                 if (flag)
                 {
-                    return RedirectToAction("Profile", "Account", new { name = user.Name });
+                    return RedirectToAction("UserFiles", "File", new { name = user.Name });
                 }
                 ModelState.AddModelError("", "Error changing password");
             }

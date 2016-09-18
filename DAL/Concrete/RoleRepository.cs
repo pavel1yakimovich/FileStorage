@@ -27,14 +27,10 @@ namespace DAL.Concrete
             return ormRole.ToDalRole();
         }
 
-        public DalRole GetByPredicate(Expression<Func<DalRole, bool>> f)
+        public DalRole GetByName(string name)
         {
-            var param = Expression.Parameter(typeof(Role));
-            var body = new Visitor<Role>(param).Visit(f.Body);
-            Expression<Func<Role, bool>> expr = Expression.Lambda<Func<Role, bool>>(body, param);
-            var role = context.Set<Role>().FirstOrDefault(expr);
-
-            return role.ToDalRole();
+            var ormRole = context.Set<Role>().FirstOrDefault(role => role.Name == name);
+            return ormRole.ToDalRole();
         }
     }
 }

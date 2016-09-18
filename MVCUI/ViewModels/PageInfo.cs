@@ -8,11 +8,11 @@ namespace MVCUI.ViewModels
 {
     public class PageInfo
     {
-        public int PageNumber { get; set; } // номер текущей страницы
-        public int PageSize { get; set; } // кол-во объектов на странице
-        public int TotalItems { get; set; } // всего объектов
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+        public int TotalItems { get; set; }
 
-        public int TotalPages // всего страниц
+        public int TotalPages
             => (int) Math.Ceiling((decimal) TotalItems/PageSize);
     }
 
