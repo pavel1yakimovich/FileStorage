@@ -15,7 +15,7 @@ namespace MVCUI.Controllers
     {
         private readonly IUserService userService;
         private readonly IFileService fileService;
-        private const int pageSize = 6;
+        private const int pageSize = 5;
 
         public FileController(IFileService fileService, IUserService userService)
         {
