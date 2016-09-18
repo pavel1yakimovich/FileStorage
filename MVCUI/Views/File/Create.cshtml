@@ -17,9 +17,16 @@
         @Html.EditorFor(model => model.IsPublic)
     </div>
 
-    <div>
-        <input type="file" name="uploadFile"/>
+    <div class="file-upload btn btn-default">
+        <label>
+            <input type="file" name="uploadFile">
+            <span>Choose file</span>
+        </label>
     </div>
+    <div>
+        <input type="text" id="filename" class="filename" disabled>
+    </div>
+
     <div id="dropZone">
         Drop zone
     </div>
@@ -32,5 +39,6 @@
 @section Scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/Custom/Drag-n-DropUpload.js")
+    @Scripts.Render("~/bundles/custominput")
+    @Scripts.Render("~/bundles/dragndrop")
 }

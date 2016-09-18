@@ -27,14 +27,11 @@ namespace MVCUI
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/dropzonescripts").Include(
-                     "~/Scripts/dropzone/dropzone.js"));
+            bundles.Add(new ScriptBundle("~/bundles/dragndrop").Include(
+                     "~/Scripts/Custom/drag-n-dropupload.js"));
 
-            bundles.Add(new StyleBundle("~/Content/dropzonescss").Include(
-                     "~/Scripts/dropzone/css/basic.css",
-                     "~/Scripts/dropzone/css/dropzone.css"));
-
-
+            bundles.Add(new ScriptBundle("~/bundles/custominput").Include(
+                     "~/Scripts/Custom/fileinputbutton.js"));
         }
     }
 }
