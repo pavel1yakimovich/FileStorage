@@ -1,11 +1,18 @@
+using MVCUI.Logger;
+using System;
+using System.Web.Mvc;
+using Moveax.Mvc.ErrorHandler;
+
 namespace MVCUI.Controllers
 {
-    using System;
-    using System.Web.Mvc;
-	using Moveax.Mvc.ErrorHandler;
-
     public class ErrorController : ErrorHandlerControllerBase
     {
+        private static ILogger logger;
+
+        public ErrorController()
+        {
+            logger = new NLogAdaptor();
+        }
         /// <summary>Default action.</summary>
         /// <param name="errorDescription">The error description.</param>
         public override ActionResult Default(ErrorDescription errorDescription)
@@ -24,7 +31,7 @@ namespace MVCUI.Controllers
         /// <param name="errorDescription">The error description.</param>
         protected override void HandleError(ErrorDescription errorDescription)
         {
-            // TODO: Add a logging code here (just a reminder).
+            logger.Error(errorDescription.Exception.Message);
         }
     }
 }

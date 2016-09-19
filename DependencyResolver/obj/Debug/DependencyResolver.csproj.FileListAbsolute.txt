@@ -46,6 +46,3 @@ E:\Trainings EPAM\FileStorage\DependencyResolver\bin\Debug\Ninject.Web.Common.xm
 E:\Trainings EPAM\FileStorage\DependencyResolver\obj\Debug\DependencyResolver.csprojResolveAssemblyReference.cache
 E:\Trainings EPAM\FileStorage\DependencyResolver\obj\Debug\DependencyResolver.dll
 E:\Trainings EPAM\FileStorage\DependencyResolver\obj\Debug\DependencyResolver.pdb
-E:\Trainings EPAM\FileStorage\DependencyResolver\bin\Debug\NLog.dll
-E:\Trainings EPAM\FileStorage\DependencyResolver\bin\Debug\NLog.xml
-E:\Trainings EPAM\FileStorage\DependencyResolver\bin\Debug\NLog.config

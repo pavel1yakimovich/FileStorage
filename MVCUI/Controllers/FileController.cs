@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using BLL.Interface.Services;
 using MVCUI.Infrastructure.Mappers;
+using MVCUI.Logger;
 using MVCUI.ViewModels;
 using MVCUI.ViewModels.File;
 
@@ -16,19 +17,23 @@ namespace MVCUI.Controllers
         private readonly IUserService userService;
         private readonly IFileService fileService;
         private const int pageSize = 5;
+        private static ILogger logger;
 
         public FileController(IFileService fileService, IUserService userService)
         {
             this.userService = userService;
             this.fileService = fileService;
+            logger = new NLogAdaptor();
         }
 
         public ActionResult All(int page = 1)
         {
+            
             var list = User.IsInRole("Admin") ? fileService.GetAllFileEntities().Select(file => file.ToMvcFile()) :
                 fileService.GetAllPublicFileEntities().Select(file => file.ToMvcFile());
             
             var ivm = GetIvm(list, page);
+            
             if (Request.IsAjaxRequest())
             {
                 return PartialView(ivm);
@@ -77,6 +82,8 @@ namespace MVCUI.Controllers
             file.Date = DateTime.Now;
             fileService.CreateFile(file.ToBllFile());
             
+            logger.Info($"{User.Identity.Name} uploaded the file {file.Name}.");
+
             return RedirectToAction("All");
 
         }
@@ -84,6 +91,8 @@ namespace MVCUI.Controllers
         public FileResult GetFile(int fileId)
         {
             var file = fileService.GetFileEntity(fileId).ToMvcFile();
+            logger.Info($"File {file.Name} has been downloaded.");
+
             return File(file.Content, file.Type, file.Name);
         }
         
@@ -109,19 +118,25 @@ namespace MVCUI.Controllers
         [Authorize]
         public ActionResult Delete(int fileId)
         {
+            string fileName = "";
             try
             {
                 var file = fileService.GetFileEntity(fileId).ToMvcFile();
+                fileName = file.Name;
                 if (User.IsInRole("Admin") || User.Identity.Name == file.User)
+                {
                     return View(file);
+                }
             }
             catch (NullReferenceException)
             {
-                var e = new HttpException(404, "There is no such file");
+                var e = new HttpException(404, "An attemppt to delete file that doesn't exist.");
+
                 throw e;
             }
 
-            var exception = new HttpException(403, "You cannot delete this file");
+            var exception = new HttpException(403, $"User {User.Identity.Name} tried to delete file {fileName}.");
+
             throw exception;
         }
 
@@ -130,7 +145,9 @@ namespace MVCUI.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(int fileId)
         {
+            var fileName = fileService.GetFileEntity(fileId).Name;
             fileService.DeleteFile(fileService.GetFileEntity(fileId));
+            logger.Info($"User {User.Identity.Name} deleted file {fileName}.");
 
             return RedirectToAction("All");
         }
@@ -138,19 +155,23 @@ namespace MVCUI.Controllers
         [Authorize]
         public ActionResult Edit(int fileId)
         {
+            string fileName = "";
             try
             {
                 var file = fileService.GetFileEntity(fileId).ToMvcFile();
+                fileName = file.Name;
                 if (User.IsInRole("Admin") || User.Identity.Name == file.User)
                     return View(file);
             }
             catch (NullReferenceException)
             {
-                var e = new HttpException(404, "There is no such file");
+                var e = new HttpException(404, "An attemppt to edit file that doesn't exist.");
+
                 throw e;
             }
 
-            var exception = new HttpException(403, "You cannot edit this file");
+            var exception = new HttpException(403, $"User {User.Identity.Name} tried to edit file {fileName}.");
+
             throw exception;
         }
 
@@ -159,7 +180,9 @@ namespace MVCUI.Controllers
         public ActionResult Edit(FileViewModel file)
         {
             file.Date = DateTime.Now;
+            var fileName = fileService.GetFileEntity(file.Id).Name;
             fileService.UpdateFile(file.ToBllFile());
+            logger.Info($"User {User.Identity.Name} edited file {fileName}.");
 
             return RedirectToAction("All");
         }

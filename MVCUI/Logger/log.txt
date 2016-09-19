@@ -1,0 +1,4 @@
+2016-09-19 18:06:23.6232|INFO|MVCUI.Logger.NLogAdaptor|User admin logged off.
+2016-09-19 18:06:58.3823|INFO|MVCUI.Logger.NLogAdaptor|User admin logged in.
+2016-09-19 18:07:04.7885|INFO|MVCUI.Logger.NLogAdaptor|User admin logged off.
+2016-09-19 18:07:11.4011|INFO|MVCUI.Logger.NLogAdaptor|User qwerty logged in.

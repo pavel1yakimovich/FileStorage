@@ -1,7 +1,6 @@
 ﻿using System.Data.Entity;
 using BLL.Interface.Services;
 using BLL.Services;
-using DAL;
 using DAL.Concrete;
 using DAL.Interface.DTO;
 using DAL.Interface.Repository;
@@ -30,7 +29,6 @@ namespace DependencyResolver
             kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<IRepository<DalFile>>().To<FileRepository>();
             kernel.Bind<IRoleRepository>().To<RoleRepository>();
-            kernel.Bind<ILogger>().To<NLogAdaptor>().InSingletonScope();
         }
     }
 }

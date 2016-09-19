@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using BLL.Interface.Services;
 using MVCUI.Infrastructure.Mappers;
+using MVCUI.Logger;
 using MVCUI.Providers;
 using MVCUI.ViewModels;
 using MVCUI.ViewModels.Account;
@@ -18,11 +19,13 @@ namespace MVCUI.Controllers
         private readonly IUserService userService;
         private readonly IFileService fileService;
         private const int pageSize = 5;
+        private static ILogger logger;
 
         public AccountController(IUserService userService, IFileService fileService)
         {
             this.fileService = fileService;
             this.userService = userService;
+            logger = new NLogAdaptor();
         }
 
         [Authorize(Roles = "Admin")]
@@ -63,6 +66,7 @@ namespace MVCUI.Controllers
                 if (Membership.ValidateUser(model.Name, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.Name, model.RememberMe);
+                    logger.Info($"User {model.Name} logged in.");
                     if (Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
@@ -82,7 +86,9 @@ namespace MVCUI.Controllers
 
         public ActionResult LogOff()
         {
+            var userName = User.Identity.Name;
             FormsAuthentication.SignOut();
+            logger.Info($"User {userName} logged off.");
 
             return RedirectToAction("LogIn", "Account");
         }
@@ -116,6 +122,8 @@ namespace MVCUI.Controllers
                 if (membershipUser != null)
                 {
                     FormsAuthentication.SetAuthCookie(registerViewModel.Name, false);
+                    logger.Info($"User {registerViewModel.Name} registered.");
+
                     return RedirectToAction("All", "File");
                 }
                 ModelState.AddModelError("", "Error registration");
@@ -134,11 +142,13 @@ namespace MVCUI.Controllers
             }
             catch (NullReferenceException)
             {
-                var e = new HttpException(404, "There is no such user");
+                var e = new HttpException(404, "An attempt to edit profile of user that doesn't exist.");
+
                 throw e;
             }
 
-            var exception = new HttpException(403, "You cannot edit this user");
+            var exception = new HttpException(403, $"User {User.Identity.Name} tried to edit another profile.");
+
             throw exception;
         }
 
@@ -161,6 +171,7 @@ namespace MVCUI.Controllers
 
                 if (flag)
                 {
+                    logger.Info($"User {user.Name} changed his password.");
                     return RedirectToAction("UserFiles", "File", new { name = user.Name });
                 }
                 ModelState.AddModelError("", "Error changing password");

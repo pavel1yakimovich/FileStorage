@@ -5,21 +5,21 @@
     {
         @Html.AntiForgeryToken()
         
-            <li class="w3-hide-small">
+            <li>
                 @Html.ActionLink("Your profile, " + User.Identity.Name, "UserFiles", "File", new { name = User.Identity.Name }, new { @class="w3-hover-white" })
             </li>
-            <li class="w3-hide-small">
+            <li>
                 @Html.ActionLink("Upload new file", "Create", "File", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })
             </li>
             if (ViewContext.HttpContext.User.IsInRole("Admin"))
             {
-                <li class="w3-hide-small">@Html.ActionLink("All users", "All", "Account", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })</li>
+                <li>@Html.ActionLink("All users", "All", "Account", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })</li>
             }
-            <li class="w3-hide-small">@Html.ActionLink("Log off", "LogOff", "Account", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })</li>
+            <li>@Html.ActionLink("Log off", "LogOff", "Account", routeValues: null, htmlAttributes: new { @class = "w3-hover-white" })</li>
     }
 }
 else
 {
-        <li class="w3-hide-small">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class="w3-hover-white" })</li>
-        <li class="w3-hide-small">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "w3-hover-white" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class="w3-hover-white" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "w3-hover-white" })</li>
 }
