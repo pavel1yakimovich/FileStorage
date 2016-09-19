@@ -22,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description)
             <div>
-                <textarea class="text-box valid" id="Description" name="Description" type="text" value="public"></textarea>
+                <textarea class="text-box valid" id="Description" name="Description" type="text" value="public">@Model.Description</textarea>
             </div>
         </div>
         <input type="submit" value="Edit" class="btn btn-primary" />

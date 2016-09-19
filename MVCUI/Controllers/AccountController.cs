@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -107,6 +108,13 @@ namespace MVCUI.Controllers
         {
             if (ModelState.IsValid)
             {
+                Regex rgx = new Regex(@"[\w|_|.|()|-]+");
+                if (rgx.IsMatch(registerViewModel.Name))
+                {
+                    ModelState.AddModelError("", "Wrong name");
+                    return View(registerViewModel);
+                }
+
                 var anyUser = userService.GetAllUserEntities().Any(u => u.Name.Contains(registerViewModel.Name));
 
                 if (anyUser)

@@ -2,3 +2,13 @@
 2016-09-19 18:06:58.3823|INFO|MVCUI.Logger.NLogAdaptor|User admin logged in.
 2016-09-19 18:07:04.7885|INFO|MVCUI.Logger.NLogAdaptor|User admin logged off.
 2016-09-19 18:07:11.4011|INFO|MVCUI.Logger.NLogAdaptor|User qwerty logged in.
+2016-09-19 18:08:33.0388|INFO|MVCUI.Logger.NLogAdaptor|User qwerty logged off.
+2016-09-19 18:18:34.8309|INFO|MVCUI.Logger.NLogAdaptor|User qwerty edited file qq1.txt.
+2016-09-19 18:18:41.6278|INFO|MVCUI.Logger.NLogAdaptor|User qwerty edited file qq1.txt.
+2016-09-19 18:18:47.4150|INFO|MVCUI.Logger.NLogAdaptor|User qwerty edited file qq1.txt.
+2016-09-19 18:22:55.0075|INFO|MVCUI.Logger.NLogAdaptor|qwerty uploaded the file ILogger.cs.
+2016-09-19 18:23:17.7585|INFO|MVCUI.Logger.NLogAdaptor|User qwerty deleted file ILogger.cs.
+2016-09-19 18:24:45.5214|ERROR|MVCUI.Logger.NLogAdaptor|The parameters dictionary contains a null entry for parameter 'fileId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult Edit(Int32)' in 'MVCUI.Controllers.FileController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Имя параметра: parameters
+2016-09-19 18:26:27.7095|INFO|MVCUI.Logger.NLogAdaptor|User qwerty edited file Raw.docx.
+2016-09-19 18:27:39.7977|INFO|MVCUI.Logger.NLogAdaptor|User qwerty logged off.
