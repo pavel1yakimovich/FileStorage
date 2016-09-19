@@ -109,7 +109,7 @@ namespace MVCUI.Controllers
             if (ModelState.IsValid)
             {
                 Regex rgx = new Regex(@"[\w|_|.|()|-]+");
-                if (rgx.IsMatch(registerViewModel.Name))
+                if (!rgx.IsMatch(registerViewModel.Name))
                 {
                     ModelState.AddModelError("", "Wrong name");
                     return View(registerViewModel);

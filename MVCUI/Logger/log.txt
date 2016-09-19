@@ -12,3 +12,65 @@
 Имя параметра: parameters
 2016-09-19 18:26:27.7095|INFO|MVCUI.Logger.NLogAdaptor|User qwerty edited file Raw.docx.
 2016-09-19 18:27:39.7977|INFO|MVCUI.Logger.NLogAdaptor|User qwerty logged off.
+2016-09-19 18:40:45.5371|INFO|MVCUI.Logger.NLogAdaptor|User qwerty logged in.
+2016-09-19 18:41:06.3165|ERROR|MVCUI.Logger.NLogAdaptor|E:\Trainings EPAM\FileStorage\MVCUI\Views\File\Edit.cshtml(6): error CS1026: ) expected
+2016-09-19 18:45:31.7326|INFO|MVCUI.Logger.NLogAdaptor|User qwerty edited file Raw.docx.
+2016-09-19 18:45:52.9311|INFO|MVCUI.Logger.NLogAdaptor|User qwerty edited file Raw.docx.
+2016-09-19 18:54:37.6984|INFO|MVCUI.Logger.NLogAdaptor|User qwerty logged off.
+2016-09-19 19:00:59.8402|INFO|MVCUI.Logger.NLogAdaptor|User test registered.
+2016-09-19 19:01:09.3534|INFO|MVCUI.Logger.NLogAdaptor|User test logged off.
+2016-09-19 19:03:25.1144|INFO|MVCUI.Logger.NLogAdaptor|User test2 registered.
+2016-09-19 19:03:46.0145|INFO|MVCUI.Logger.NLogAdaptor|test2 uploaded the file log.txt.
+2016-09-19 19:03:50.7623|INFO|MVCUI.Logger.NLogAdaptor|User test2 logged off.
+2016-09-19 19:03:59.2114|INFO|MVCUI.Logger.NLogAdaptor|User test logged in.
+2016-09-19 19:04:09.2038|INFO|MVCUI.Logger.NLogAdaptor|test uploaded the file ILogger.cs.
+2016-09-19 19:04:16.8835|INFO|MVCUI.Logger.NLogAdaptor|File 5_nizza_-_Ale.mp3 has been downloaded.
+2016-09-19 19:04:44.1266|INFO|MVCUI.Logger.NLogAdaptor|User test edited file ILogger.cs.
+2016-09-19 19:04:54.2198|ERROR|MVCUI.Logger.NLogAdaptor|The parameters dictionary contains a null entry for parameter 'fileId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult ConfirmDelete(Int32)' in 'MVCUI.Controllers.FileController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Имя параметра: parameters
+2016-09-19 19:06:15.2796|ERROR|MVCUI.Logger.NLogAdaptor|The parameters dictionary contains a null entry for parameter 'fileId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult ConfirmDelete(Int32)' in 'MVCUI.Controllers.FileController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Имя параметра: parameters
+2016-09-19 19:06:39.1963|ERROR|MVCUI.Logger.NLogAdaptor|E:\Trainings EPAM\FileStorage\MVCUI\Views\File\Delete.cshtml(33): error CS1026: ) expected
+2016-09-19 19:08:01.7974|INFO|MVCUI.Logger.NLogAdaptor|User test deleted file ILogger.cs.
+2016-09-19 19:08:21.6867|INFO|MVCUI.Logger.NLogAdaptor|test uploaded the file log.txt.
+2016-09-19 19:08:38.8179|ERROR|MVCUI.Logger.NLogAdaptor|User test tried to edit file page.html.
+2016-09-19 19:08:49.1892|ERROR|MVCUI.Logger.NLogAdaptor|An attemppt to edit file that doesn't exist.
+2016-09-19 19:08:53.0967|INFO|MVCUI.Logger.NLogAdaptor|User test logged off.
+2016-09-19 19:10:07.4142|INFO|MVCUI.Logger.NLogAdaptor|User test3 registered.
+2016-09-19 19:10:17.0116|INFO|MVCUI.Logger.NLogAdaptor|test3 uploaded the file file.txt.
+2016-09-19 19:10:26.6106|INFO|MVCUI.Logger.NLogAdaptor|User test3 edited file file.txt.
+2016-09-19 19:10:35.9776|INFO|MVCUI.Logger.NLogAdaptor|User test3 edited file file.txt.
+2016-09-19 19:10:55.0116|INFO|MVCUI.Logger.NLogAdaptor|User test3 changed his password.
+2016-09-19 19:10:58.1531|INFO|MVCUI.Logger.NLogAdaptor|File file.txt has been downloaded.
+2016-09-19 19:11:14.3998|ERROR|MVCUI.Logger.NLogAdaptor|Ссылка на объект не указывает на экземпляр объекта.
+2016-09-19 19:14:16.5640|ERROR|MVCUI.Logger.NLogAdaptor|An attemppt to get profile of user that doesn't exist.
+2016-09-19 19:14:20.9978|ERROR|MVCUI.Logger.NLogAdaptor|The controller for path '/3333' was not found or does not implement IController.
+2016-09-19 19:14:32.2934|ERROR|MVCUI.Logger.NLogAdaptor|An attemppt to get profile of user that doesn't exist.
+2016-09-19 19:14:37.4250|ERROR|MVCUI.Logger.NLogAdaptor|An attemppt to get profile of user that doesn't exist.
+2016-09-19 19:14:44.8395|ERROR|MVCUI.Logger.NLogAdaptor|A public action method 'hjk' was not found on controller 'MVCUI.Controllers.FileController'.
+2016-09-19 19:14:48.5762|ERROR|MVCUI.Logger.NLogAdaptor|The controller for path '/Filehjk' was not found or does not implement IController.
+2016-09-19 19:16:11.0187|ERROR|MVCUI.Logger.NLogAdaptor|A public action method 'lkhb' was not found on controller 'MVCUI.Controllers.FileController'.
+2016-09-19 19:16:15.2224|ERROR|MVCUI.Logger.NLogAdaptor|A public action method 'Create;uuh' was not found on controller 'MVCUI.Controllers.FileController'.
+2016-09-19 19:16:22.7283|INFO|MVCUI.Logger.NLogAdaptor|User test3 logged off.
+2016-09-19 19:16:51.7190|INFO|MVCUI.Logger.NLogAdaptor|File qq1.txt has been downloaded.
+2016-09-19 19:17:07.0979|INFO|MVCUI.Logger.NLogAdaptor|User admin logged in.
+2016-09-19 19:17:19.7935|INFO|MVCUI.Logger.NLogAdaptor|User admin edited file log.txt.
+2016-09-19 19:17:35.0568|INFO|MVCUI.Logger.NLogAdaptor|File log.txt has been downloaded.
+2016-09-19 19:17:45.8328|INFO|MVCUI.Logger.NLogAdaptor|User admin deleted file log.txt.
+2016-09-19 19:17:52.7883|INFO|MVCUI.Logger.NLogAdaptor|User admin deleted file log.txt.
+2016-09-19 19:19:14.5394|ERROR|MVCUI.Logger.NLogAdaptor|An attemppt to get profile of user that doesn't exist.
+2016-09-19 19:19:32.1879|INFO|MVCUI.Logger.NLogAdaptor|User admin logged off.
+2016-09-19 19:19:38.5052|INFO|MVCUI.Logger.NLogAdaptor|User test3 logged in.
+2016-09-19 19:30:34.2923|ERROR|MVCUI.Logger.NLogAdaptor|Cannot create file 'E:\Trainings EPAM\FileStorage\MVCUI\App_Data\DbFileStorage.mdf' because it already exists. Change the file path or the file name, and retry the operation.
+CREATE DATABASE failed. Some file names listed could not be created. Check related errors.
+2016-09-19 19:39:54.8077|INFO|MVCUI.Logger.NLogAdaptor|User test3 logged off.
+2016-09-19 19:41:22.5992|INFO|MVCUI.Logger.NLogAdaptor|User admin logged in.
+2016-09-19 19:52:23.6017|INFO|MVCUI.Logger.NLogAdaptor|User admin edited file file.txt.
+2016-09-19 19:52:32.1262|INFO|MVCUI.Logger.NLogAdaptor|User admin edited file file.txt.
+2016-09-19 20:04:16.8114|ERROR|MVCUI.Logger.NLogAdaptor|Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+2016-09-19 20:04:52.3148|ERROR|MVCUI.Logger.NLogAdaptor|Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+2016-09-19 20:05:22.8838|INFO|MVCUI.Logger.NLogAdaptor|admin uploaded the file FileStorage.sln.
+2016-09-19 20:05:34.1124|ERROR|MVCUI.Logger.NLogAdaptor|Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+2016-09-19 20:05:40.5970|INFO|MVCUI.Logger.NLogAdaptor|User admin deleted file FileStorage.sln.
+2016-09-19 20:05:48.2934|INFO|MVCUI.Logger.NLogAdaptor|admin uploaded the file ApplicationInsights.config.
+2016-09-19 20:05:54.3458|INFO|MVCUI.Logger.NLogAdaptor|User admin deleted file ApplicationInsights.config.

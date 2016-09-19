@@ -17,26 +17,25 @@ namespace MVCUI.Helpers
             int i = 1;
             if (pageInfo.TotalPages > 3 && pageInfo.PageNumber > 2)
             {
-                var tag = CreateTag(i, pageInfo, pageUrl, ul);
+                CreateTag(i, pageInfo, pageUrl, ul);
                 i = pageInfo.PageNumber - 1;
             }
-            int j = i;
             int k = Math.Min(i+3, pageInfo.TotalPages);
 
-            for (; j < k; j++)
+            for (; i < k; i++)
             {
-                var tag = CreateTag(j, pageInfo, pageUrl, ul);
+                CreateTag(i, pageInfo, pageUrl, ul);
             }
 
-            if ( j <= pageInfo.TotalPages )
+            if ( i <= pageInfo.TotalPages )
             {
-                var tag = CreateTag(pageInfo.TotalPages, pageInfo, pageUrl, ul);
+                CreateTag(pageInfo.TotalPages, pageInfo, pageUrl, ul);
             }
             result.Append(ul.ToString());
             return MvcHtmlString.Create(result.ToString());
         }
 
-        private static TagBuilder CreateTag(int i, PageInfo pageInfo, Func<int, string> pageUrl, TagBuilder ul)
+        private static void CreateTag(int i, PageInfo pageInfo, Func<int, string> pageUrl, TagBuilder ul)
         {
             var tag = new TagBuilder("li");
 
@@ -47,7 +46,6 @@ namespace MVCUI.Helpers
             tag.MergeAttribute("value", i.ToString());
 
             ul.InnerHtml += tag.ToString();
-            return tag;
         }
     }
 }

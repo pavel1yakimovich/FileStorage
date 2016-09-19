@@ -98,21 +98,30 @@ namespace MVCUI.Controllers
         
         public ActionResult UserFiles(string name, int page = 1)
         {
-            ViewBag.Name = name;
-            ViewBag.Id = userService.GetUserEntity(name).Id;
-
-            var list = User.IsInRole("Admin") || User.Identity.Name == name ?
-                fileService.GetAllFileEntitiesOfUser(name).Select(file => file.ToMvcFile()) :
-                fileService.GetAllPublicFileEntitiesOfUser(name).Select(file => file.ToMvcFile());
-
-            var ivm = GetIvm(list, page);
-
-            if (Request.IsAjaxRequest())
+            try
             {
-                return PartialView(ivm);
-            }
+                ViewBag.Name = name;
+                ViewBag.Id = userService.GetUserEntity(name).Id;
 
-            return View(ivm);
+                var list = User.IsInRole("Admin") || User.Identity.Name == name
+                    ? fileService.GetAllFileEntitiesOfUser(name).Select(file => file.ToMvcFile())
+                    : fileService.GetAllPublicFileEntitiesOfUser(name).Select(file => file.ToMvcFile());
+
+                var ivm = GetIvm(list, page);
+
+                if (Request.IsAjaxRequest())
+                {
+                    return PartialView(ivm);
+                }
+
+                return View(ivm);
+            }
+            catch (NullReferenceException)
+            {
+                var e = new HttpException(404, "An attemppt to get profile of user that doesn't exist.");
+
+                throw e;
+            }
         }
 
         [Authorize]
